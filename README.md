@@ -1,4 +1,30 @@
-# LogiAdmin by LogiProf — 1.0.1
+# LogiAdmin by LogiProf — 1.0.2
+
+## Nouveautés 1.0.2
+
+- Mises à jour depuis WordPress, sur le modèle de LogiAi : LogiAdmin lit la dernière version publiée
+  dans le dépôt public `logiadmin-releases` et la propose dans Extensions et dans
+  LogiAdmin › Tableau de bord › Mises à jour (bouton « Vérifier maintenant »).
+- Chaque paquet est signé (Ed25519) : LogiAdmin refuse tout paquet modifié ou qui ne porte pas la signature LogiProf.
+
+## Publier une version
+
+Le code reste dans ce dépôt privé ; les sites ne lisent que le dépôt public
+[logiadmin-releases](https://github.com/logiprof/logiadmin-releases) (`latest.json`, `notes/`, `versions/X.Y.Z/logiadmin.zip`).
+
+1. Augmenter la version dans `logiadmin.php` (en-tête `Version:` et constante `LOGIADMIN_VERSION`).
+2. Écrire les nouveautés dans `notes/X.Y.Z.txt`, puis committer.
+3. Lancer `scripts/publier-version.sh X.Y.Z <clone de logiadmin-releases>` : le script fabrique
+   `logiadmin.zip` (sans `scripts/` ni `notes/`), le signe et met à jour `latest.json`.
+4. Committer et pousser `logiadmin-releases` : les sites voient la mise à jour (vérification toutes les 12 h,
+   ou tout de suite avec « Vérifier maintenant »).
+
+La clé privée de signature est lue dans la variable `LOGIADMIN_SIGNING_KEY` ou dans
+`~/.config/logiprof/logiadmin-signing.key`. Elle ne doit **jamais** être committée. Sans elle, aucune
+nouvelle version ne peut être publiée ; si elle est perdue, il faut générer une nouvelle paire de clés et
+installer à la main une version de LogiAdmin qui contient la nouvelle clé publique
+(`includes/class-logiadmin-updater.php`, constante `PUBLIC_KEY`).
+
 
 ## Nouveautés 1.0.1
 

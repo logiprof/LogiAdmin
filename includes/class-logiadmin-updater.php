@@ -26,7 +26,9 @@ final class LogiAdmin_Updater {
 	public static function init() {
 		add_filter( 'pre_set_site_transient_update_plugins', array( __CLASS__, 'inject_update' ) );
 		add_filter( 'plugins_api', array( __CLASS__, 'plugin_information' ), 20, 3 );
-		add_filter( 'upgrader_pre_download', array( __CLASS__, 'download_and_verify' ), 10, 4 );
+		// En dernier : c'est le fichier qui sera réellement installé qui est vérifié, même si une autre
+		// extension (ou un cache) a fourni le paquet avant.
+		add_filter( 'upgrader_pre_download', array( __CLASS__, 'download_and_verify' ), PHP_INT_MAX, 4 );
 		add_filter( 'upgrader_source_selection', array( __CLASS__, 'keep_folder_name' ), 10, 4 );
 		add_action( 'upgrader_process_complete', array( __CLASS__, 'after_upgrade' ), 10, 2 );
 		add_action( 'admin_post_logiadmin_check_updates', array( __CLASS__, 'handle_check_now' ) );
@@ -201,7 +203,12 @@ final class LogiAdmin_Updater {
 			$upgrader->skin->feedback( __( 'Téléchargement de LogiAdmin et vérification de la signature LogiProf…', 'logiadmin' ) );
 		}
 
-		$file = download_url( $package, 300 );
+		if ( is_wp_error( $reply ) ) {
+			return $reply;
+		}
+
+		// Un paquet déjà fourni (cache, autre extension) est vérifié tel quel ; sinon on le télécharge.
+		$file = ( is_string( $reply ) && '' !== $reply && file_exists( $reply ) ) ? $reply : download_url( $package, 300 );
 		if ( is_wp_error( $file ) ) {
 			return $file;
 		}

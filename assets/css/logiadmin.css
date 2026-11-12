@@ -1858,7 +1858,6 @@ a.lad-tile:hover .lad-tile-art {
 	padding: 10px 14px;
 	border-radius: 8px;
 	background: var(--lad-paper-soft);
-	white-space: pre-line;
 }
 
 .lad-update-notes p {

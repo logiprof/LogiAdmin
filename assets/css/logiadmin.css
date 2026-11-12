@@ -1822,3 +1822,45 @@ a.lad-tile:hover .lad-tile-art {
 .logiprof-amm .logiprof-amm-group li a:hover {
 	text-decoration: underline;
 }
+
+/* Mises à jour */
+.lad-updates {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-end;
+	justify-content: space-between;
+	gap: 16px 32px;
+	border-left: 6px solid var(--lad-ink);
+}
+
+.lad-updates-text {
+	flex: 1 1 520px;
+}
+
+.lad-updates-text p {
+	margin: 0 0 8px;
+}
+
+.lad-updates-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin: 0;
+}
+
+.lad-pill.is-new {
+	background: var(--lad-yellow);
+	color: var(--lad-ink);
+}
+
+.lad-update-notes {
+	margin: 0 0 10px;
+	padding: 10px 14px;
+	border-radius: 8px;
+	background: var(--lad-paper-soft);
+	white-space: pre-line;
+}
+
+.lad-update-notes p {
+	margin: 0;
+}

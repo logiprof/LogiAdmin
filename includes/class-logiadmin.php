@@ -573,6 +573,11 @@ final class LogiAdmin {
 		$notice = isset( $_GET['logiadmin_notice'] ) ? sanitize_key( wp_unslash( $_GET['logiadmin_notice'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( 'modules' === $notice ) {
 			echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'Choix des outils enregistré.', 'logiadmin' ) . '</p></div>';
+		} elseif ( 'checked' === $notice ) {
+			$message = LogiAdmin_Updater::has_update()
+				? __( 'Une nouvelle version de LogiAdmin est disponible : voir « Mises à jour » plus bas.', 'logiadmin' )
+				: __( 'Vérification faite : LogiAdmin est à jour.', 'logiadmin' );
+			echo '<div class="notice notice-success is-dismissible"><p>' . esc_html( $message ) . '</p></div>';
 		} elseif ( 'switched' === $notice ) {
 			echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'Les anciennes extensions sont désactivées. Tous les outils tournent maintenant dans LogiAdmin, avec leurs données.', 'logiadmin' ) . '</p></div>';
 		}
@@ -620,6 +625,8 @@ final class LogiAdmin {
 			}
 			echo '</div></section>';
 		}
+
+		LogiAdmin_Updater::render_card();
 
 		if ( current_user_can( 'manage_options' ) ) {
 			self::render_modules_form( $disabled );

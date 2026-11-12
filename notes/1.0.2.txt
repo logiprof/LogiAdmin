@@ -1,0 +1,3 @@
+Nouveautés de la version 1.0.2 :
+• Mises à jour depuis WordPress, comme LogiAi : LogiAdmin vérifie la dernière version publiée et propose de l'installer (Extensions, et Tableau de bord › Mises à jour).
+• Chaque paquet est signé : LogiAdmin refuse tout paquet qui ne porte pas la signature LogiProf.

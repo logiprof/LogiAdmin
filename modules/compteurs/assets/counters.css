@@ -1,0 +1,208 @@
+.logiprof-counters {
+	--logiprof-counter-accent: #118a8a;
+	--logiprof-counter-ink: #17212b;
+	--logiprof-counter-muted: #5c6875;
+	--logiprof-counter-border: rgba(23, 33, 43, 0.12);
+	--logiprof-counter-surface: #ffffff;
+	--logiprof-counter-radius: 8px;
+	--logiprof-counter-shadow: 0 14px 34px rgba(23, 33, 43, 0.08);
+	--logiprof-counter-value-size: 42px;
+	display: grid;
+	grid-template-columns: repeat(var(--logiprof-counter-columns, 4), minmax(0, 1fr));
+	gap: 16px;
+	width: 100%;
+}
+
+.logiprof-counters--layout-row {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.logiprof-counters--layout-row .logiprof-counter {
+	flex: 1 1 min(220px, 100%);
+}
+
+.logiprof-counters--layout-stack {
+	display: grid;
+	grid-template-columns: 1fr;
+}
+
+.logiprof-counters--layout-inline {
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 18px 26px;
+}
+
+.logiprof-counters--layout-inline .logiprof-counter {
+	flex: 0 1 auto;
+}
+
+.logiprof-counters--layout-inline .logiprof-counter--card {
+	min-height: auto;
+	padding: 16px 18px;
+}
+
+.logiprof-counter {
+	--counter-local-accent: var(--logiprof-counter-accent);
+	box-sizing: border-box;
+	color: var(--logiprof-counter-ink);
+	font-family: inherit;
+	min-width: 0;
+}
+
+.logiprof-counter--card {
+	align-items: center;
+	background: var(--logiprof-counter-surface);
+	border: 1px solid var(--logiprof-counter-border);
+	border-radius: var(--logiprof-counter-radius);
+	box-shadow: var(--logiprof-counter-shadow);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	min-height: 150px;
+	padding: 24px 18px;
+	text-align: center;
+}
+
+.logiprof-counter--minimal,
+.logiprof-counter--inline {
+	align-items: center;
+	display: inline-flex;
+	gap: 10px;
+}
+
+.logiprof-counter--minimal {
+	border-bottom: 2px solid color-mix(in srgb, var(--counter-local-accent) 24%, transparent);
+	padding: 12px 0;
+}
+
+.logiprof-counter--inline {
+	vertical-align: middle;
+}
+
+.logiprof-counter--accounts {
+	--counter-local-accent: #1177aa;
+}
+
+.logiprof-counter--courses {
+	--counter-local-accent: #0f8f6f;
+}
+
+.logiprof-counter--lessons {
+	--counter-local-accent: #b65d21;
+}
+
+.logiprof-counter--questions {
+	--counter-local-accent: #7b5bb7;
+}
+
+.logiprof-counter__icon {
+	align-items: center;
+	background: color-mix(in srgb, var(--counter-local-accent) 12%, white);
+	border-radius: 999px;
+	color: var(--counter-local-accent);
+	display: inline-flex;
+	height: 44px;
+	justify-content: center;
+	margin-bottom: 14px;
+	width: 44px;
+}
+
+.logiprof-counter--minimal .logiprof-counter__icon,
+.logiprof-counter--inline .logiprof-counter__icon {
+	height: 34px;
+	margin-bottom: 0;
+	width: 34px;
+}
+
+.logiprof-counter__icon svg {
+	fill: currentColor;
+	height: 23px;
+	width: 23px;
+}
+
+.logiprof-counter__value-wrap {
+	align-items: baseline;
+	display: inline-flex;
+	justify-content: center;
+	min-width: 0;
+}
+
+.logiprof-counter__value,
+.logiprof-counter__prefix,
+.logiprof-counter__suffix {
+	color: var(--logiprof-counter-ink);
+	font-size: 42px;
+	font-size: var(--logiprof-counter-value-size);
+	font-weight: 800;
+	line-height: 1;
+}
+
+.logiprof-counter--minimal .logiprof-counter__value,
+.logiprof-counter--minimal .logiprof-counter__prefix,
+.logiprof-counter--minimal .logiprof-counter__suffix,
+.logiprof-counter--inline .logiprof-counter__value,
+.logiprof-counter--inline .logiprof-counter__prefix,
+.logiprof-counter--inline .logiprof-counter__suffix {
+	font-size: var(--logiprof-counter-value-size);
+}
+
+.logiprof-counter__label {
+	color: var(--logiprof-counter-muted);
+	display: block;
+	font-size: 15px;
+	font-weight: 700;
+	line-height: 1.25;
+	margin-top: 9px;
+	text-transform: uppercase;
+}
+
+.logiprof-counter--minimal .logiprof-counter__label,
+.logiprof-counter--inline .logiprof-counter__label {
+	margin-top: 0;
+	text-transform: none;
+}
+
+@supports not (background: color-mix(in srgb, #000 10%, white)) {
+	.logiprof-counter__icon {
+		background: #eef7f7;
+	}
+
+	.logiprof-counter--minimal {
+		border-bottom-color: rgba(17, 138, 138, 0.22);
+	}
+}
+
+@media (max-width: 900px) {
+	.logiprof-counters {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+@media (max-width: 560px) {
+	.logiprof-counters {
+		grid-template-columns: 1fr;
+	}
+
+	.logiprof-counters--layout-row,
+	.logiprof-counters--layout-inline {
+		align-items: stretch;
+		flex-direction: column;
+	}
+
+	.logiprof-counters--layout-inline .logiprof-counter {
+		width: 100%;
+	}
+
+	.logiprof-counter--card {
+		min-height: 130px;
+		padding: 20px 16px;
+	}
+
+	.logiprof-counter__value,
+	.logiprof-counter__prefix,
+	.logiprof-counter__suffix {
+		font-size: min(var(--logiprof-counter-value-size), 36px);
+	}
+}

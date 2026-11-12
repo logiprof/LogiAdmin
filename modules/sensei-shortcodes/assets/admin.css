@@ -1,0 +1,27 @@
+/* Shortcodes Sensei : générateur (habillage LogiOne, voir assets/css/logiadmin.css) */
+.logiprof-sensei-generator .lad-checklist {
+	max-height: 280px;
+	overflow: auto;
+}
+
+.logiprof-sensei-generator .lad-tree-item {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin: 0 0 6px;
+	font-weight: 400;
+}
+
+.logiprof-sensei-generator .lad-tree-level-0 { font-weight: 600; }
+.logiprof-sensei-generator .lad-tree-level-1 { padding-left: 22px; }
+.logiprof-sensei-generator .lad-tree-level-2 { padding-left: 44px; }
+.logiprof-sensei-generator .lad-tree-level-3,
+.logiprof-sensei-generator .lad-tree-level-4 { padding-left: 66px; }
+
+.logiprof-sensei-generator #lssc-type {
+	max-width: 460px;
+}
+
+.logiprof-sensei-generator #lssc-type-help {
+	min-height: 1.5em;
+}

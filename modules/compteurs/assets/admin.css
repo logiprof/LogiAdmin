@@ -1,0 +1,281 @@
+/* Compteurs : écran d'administration (habillage LogiOne, voir aussi assets/css/logiadmin.css) */
+.lac-workbench {
+	display: grid;
+	grid-template-columns: minmax(0, 1.15fr) minmax(340px, .85fr);
+	gap: 20px;
+	align-items: start;
+}
+
+.lac-result {
+	position: sticky;
+	top: 46px;
+}
+
+.lac-layout-choices {
+	display: grid;
+	gap: 12px;
+	grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+}
+
+.lac-layout-card {
+	display: grid;
+	gap: 6px;
+	align-content: start;
+	padding: 12px;
+	border: 2px solid var(--lad-line);
+	border-radius: 8px;
+	background: var(--lad-white);
+	color: var(--lad-ink);
+	font: inherit;
+	text-align: left;
+	cursor: pointer;
+	transition: border-color .15s ease, transform .15s ease;
+}
+
+.lac-layout-card:hover {
+	border-color: var(--lad-green-bright);
+	transform: translateY(-2px);
+}
+
+.lac-layout-card.is-selected {
+	border-color: var(--lad-green);
+	background: var(--lad-green-tint);
+	box-shadow: inset 0 0 0 1px var(--lad-green);
+}
+
+.lac-layout-card__preview {
+	display: grid;
+	gap: 6px;
+	height: 74px;
+	margin-bottom: 4px;
+	padding: 10px;
+	border-radius: 6px;
+	background: var(--lad-paper);
+	align-content: center;
+}
+
+.lac-layout-card__preview span {
+	min-height: 20px;
+	border-radius: 3px;
+	background: var(--lad-green);
+}
+
+.lac-layout-card.is-selected .lac-layout-card__preview span:first-child {
+	background: var(--lad-yellow);
+}
+
+.lac-preview--grid { grid-template-columns: repeat(4, 1fr); }
+.lac-preview--grid-three { grid-template-columns: repeat(3, 1fr); }
+.lac-preview--row { display: flex; }
+.lac-preview--row span { flex: 1; min-height: 12px; }
+.lac-preview--stack span { min-height: 10px; }
+.lac-preview--inline { display: flex; flex-wrap: wrap; align-content: center; }
+.lac-preview--inline span { flex: 0 0 26%; min-height: 8px; border-radius: 999px; }
+
+.lac-layout-card__title {
+	font-weight: 600;
+	font-size: 14px;
+}
+
+.lac-layout-card__description {
+	color: var(--lad-muted);
+	font-size: 12.5px;
+	line-height: 1.45;
+}
+
+.lac-palettes {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin: 0 0 18px;
+}
+
+.lac-palette {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 6px 14px 6px 8px;
+	border: 2px solid var(--lad-line);
+	border-radius: 999px;
+	background: var(--lad-white);
+	color: var(--lad-ink);
+	font: inherit;
+	font-size: 13px;
+	font-weight: 500;
+	cursor: pointer;
+}
+
+.lac-palette.is-selected {
+	border-color: var(--lad-green);
+}
+
+.lac-palette__dots {
+	display: inline-flex;
+}
+
+.lac-palette__dots i {
+	width: 16px;
+	height: 16px;
+	margin-right: -5px;
+	border: 2px solid var(--lad-white);
+	border-radius: 50%;
+	box-shadow: 0 0 0 1px var(--lad-line);
+}
+
+.lac-design-controls {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+	gap: 14px 18px;
+}
+
+.lac-design-control {
+	display: grid;
+	gap: 6px;
+}
+
+.lac-design-control label,
+.lac-design-toggle {
+	font-size: 13px;
+	font-weight: 600;
+}
+
+.lac-design-control output {
+	color: var(--lad-muted);
+	font-weight: 500;
+}
+
+.lac-design-control input[type="color"] {
+	width: 100%;
+	height: 40px;
+	padding: 3px;
+	border: 1px solid var(--lad-line-strong);
+	border-radius: 8px;
+	background: var(--lad-white);
+	cursor: pointer;
+}
+
+.lac-design-control input[type="range"] {
+	width: 100%;
+	accent-color: var(--lad-green);
+}
+
+.lac-design-toggle {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	align-self: end;
+	min-height: 40px;
+}
+
+.lac-live {
+	padding: 18px;
+	border-radius: 8px;
+	background: var(--lad-paper);
+	overflow: hidden;
+}
+
+.lac-live [hidden] {
+	display: none !important;
+}
+
+.lac-live-note {
+	margin: 6px 0 16px;
+	color: var(--lad-muted);
+	font-size: 12.5px;
+}
+
+.lac-copy-row {
+	display: flex;
+	gap: 8px;
+	align-items: stretch;
+	margin-top: 6px;
+}
+
+.lac-copy-row textarea {
+	flex: 1;
+	min-height: 64px;
+	resize: vertical;
+	font-size: 12.5px;
+}
+
+.lac-copy-feedback {
+	min-height: 1.5em;
+	margin: 8px 0 0;
+	color: var(--lad-green);
+	font-weight: 600;
+}
+
+.lac-single-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+	gap: 12px;
+	margin-top: 12px;
+}
+
+.lac-single-card {
+	display: grid;
+	gap: 8px;
+	padding: 14px;
+	border: 1px solid var(--lad-line);
+	border-radius: 8px;
+	background: var(--lad-paper-soft);
+}
+
+.lac-single-card__title {
+	font-weight: 600;
+}
+
+.lac-single-card code {
+	display: block;
+	padding: 6px 8px;
+	border-radius: 4px;
+	background: var(--lad-white);
+	font-size: 12px;
+	word-break: break-word;
+}
+
+.lac-single-card .button {
+	justify-self: start;
+}
+
+.lac-option-list {
+	display: grid;
+	grid-template-columns: max-content 1fr;
+	gap: 8px 18px;
+	margin: 14px 0 0;
+}
+
+.lac-option-list dt {
+	font-weight: 600;
+}
+
+.lac-option-list dd {
+	margin: 0;
+	color: var(--lad-muted);
+}
+
+.lac-copy-button.is-copied {
+	background: var(--lad-green) !important;
+	border-color: var(--lad-green) !important;
+	color: #fff !important;
+}
+
+@media (max-width: 1180px) {
+	.lac-workbench {
+		grid-template-columns: 1fr;
+	}
+
+	.lac-result {
+		position: static;
+	}
+}
+
+@media (max-width: 600px) {
+	.lac-option-list {
+		grid-template-columns: 1fr;
+	}
+
+	.lac-copy-row {
+		flex-direction: column;
+	}
+}

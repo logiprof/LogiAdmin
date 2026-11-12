@@ -1,0 +1,124 @@
+.logisensei-wrap .logisensei-toolbar {
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin: 16px 0;
+}
+
+.logisensei-wrap .logisensei-toolbar input[type="search"] {
+	min-width: 260px;
+}
+
+.logisensei-stats {
+	display: grid;
+	gap: 12px;
+	grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+	margin: 18px 0;
+	max-width: 780px;
+}
+
+.logisensei-stats > div {
+	background: #fff;
+	border: 1px solid #dcdcde;
+	border-radius: 6px;
+	padding: 16px;
+}
+
+.logisensei-stats strong {
+	display: block;
+	font-size: 28px;
+	line-height: 1.1;
+}
+
+.logisensei-stats span {
+	color: #50575e;
+	display: block;
+	margin-top: 4px;
+}
+
+.logisensei-progress {
+	background: #fff;
+	border: 1px solid #dcdcde;
+	border-radius: 6px;
+	margin-top: 18px;
+	max-width: 720px;
+	padding: 16px;
+}
+
+.logisensei-progress.is-exporting {
+	border-color: #72aee6;
+	box-shadow: 0 0 0 1px #72aee6;
+}
+
+.logisensei-progress.is-complete {
+	border-color: #00a32a;
+}
+
+.logisensei-progress-heading {
+	align-items: center;
+	display: flex;
+	gap: 10px;
+	margin-bottom: 12px;
+}
+
+.logisensei-spinner {
+	border: 3px solid #dcdcde;
+	border-radius: 50%;
+	border-top-color: #2271b1;
+	display: none;
+	height: 18px;
+	width: 18px;
+}
+
+.logisensei-progress.is-exporting .logisensei-spinner {
+	animation: logisensei-spin 700ms linear infinite;
+	display: inline-block;
+}
+
+.logisensei-progress.is-complete .logisensei-spinner {
+	border-color: #00a32a;
+	display: inline-block;
+}
+
+.logisensei-progress-bar {
+	background: #f0f0f1;
+	border-radius: 999px;
+	height: 12px;
+	overflow: hidden;
+}
+
+.logisensei-progress-bar span {
+	background: #2271b1;
+	display: block;
+	height: 100%;
+	transition: width 180ms ease;
+}
+
+#logisensei-progress-label {
+	margin: 10px 0 0;
+}
+
+#logisensei-complete-notice {
+	margin: 14px 0 0;
+}
+
+.logisensei-row-actions {
+	display: inline-block;
+	margin-left: 10px;
+}
+
+.logisensei-delete-link {
+	color: #b32d2e;
+}
+
+.logisensei-delete-link:hover,
+.logisensei-delete-link:focus {
+	color: #8a2424;
+}
+
+@keyframes logisensei-spin {
+	to {
+		transform: rotate(360deg);
+	}
+}

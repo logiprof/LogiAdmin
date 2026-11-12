@@ -1,0 +1,1824 @@
+/* =====================================================================
+   LogiAdmin — habillage LogiOne des écrans d'administration
+   Anthracite et vert LogiProf, jaune « marquage d'entrepôt » en accent,
+   police Poppins intégrée. Tout est limité aux écrans LogiAdmin.
+   ===================================================================== */
+@font-face { font-family: "LogiOne Poppins"; src: url("../fonts/poppins-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "LogiOne Poppins"; src: url("../fonts/poppins-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "LogiOne Poppins"; src: url("../fonts/poppins-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+@font-face { font-family: "LogiOne Poppins"; src: url("../fonts/poppins-latin-700-normal.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+
+body.logiadmin-screen {
+	--lad-ink: #313a45;
+	--lad-ink-2: #4a5563;
+	--lad-green: #067030;
+	--lad-green-bright: #2fae5f;
+	--lad-green-deep: #0b4d22;
+	--lad-green-tint: #e7f3eb;
+	--lad-yellow: #f5c400;
+	--lad-yellow-deep: #d9a900;
+	--lad-yellow-soft: #fff6cf;
+	--lad-paper: #eef0eb;
+	--lad-paper-soft: #f6f7f4;
+	--lad-white: #ffffff;
+	--lad-muted: #5b6672;
+	--lad-on-ink: #c9d1d9;
+	--lad-line: #dfe3dc;
+	--lad-line-strong: #c3c9be;
+	--lad-red: #b42318;
+	--lad-red-soft: #fdecea;
+	--lad-radius: 8px;
+	--lad-gutter: clamp(16px, 3vw, 40px);
+	--lad-font: "LogiOne Poppins", "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
+	background: var(--lad-paper);
+}
+
+body.logiadmin-screen #wpcontent {
+	padding-left: 0;
+}
+
+body.logiadmin-screen #wpbody-content {
+	padding-bottom: 48px;
+}
+
+body.logiadmin-screen #wpfooter {
+	padding-left: var(--lad-gutter);
+	padding-right: var(--lad-gutter);
+	color: var(--lad-muted);
+}
+
+body.logiadmin-screen #screen-meta-links {
+	margin-right: var(--lad-gutter);
+}
+
+.logiadmin-wrap {
+	margin: 0;
+	color: var(--lad-ink);
+	font-family: var(--lad-font);
+	font-size: 14px;
+	line-height: 1.55;
+}
+
+.logiadmin-wrap *,
+.logiadmin-wrap *::before,
+.logiadmin-wrap *::after {
+	box-sizing: border-box;
+}
+
+.logiadmin-wrap :focus-visible {
+	outline: 3px solid var(--lad-yellow);
+	outline-offset: 2px;
+	box-shadow: none;
+}
+
+.logiadmin-wrap h1,
+.logiadmin-wrap h2,
+.logiadmin-wrap h3,
+.logiadmin-wrap button,
+.logiadmin-wrap input,
+.logiadmin-wrap select,
+.logiadmin-wrap textarea,
+.logiadmin-wrap .button {
+	font-family: var(--lad-font);
+}
+
+.logiadmin-wrap h2 {
+	margin: 0 0 12px;
+	color: var(--lad-ink);
+	font-size: 18px;
+	font-weight: 600;
+	letter-spacing: -.01em;
+}
+
+.logiadmin-wrap h3 {
+	color: var(--lad-ink);
+	font-size: 15px;
+	font-weight: 600;
+}
+
+.logiadmin-wrap a {
+	color: var(--lad-green);
+}
+
+.logiadmin-wrap a:hover {
+	color: var(--lad-green-deep);
+}
+
+.logiadmin-wrap code,
+.logiadmin-wrap .code {
+	font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+.logiadmin-wrap code {
+	padding: 2px 6px;
+	border-radius: 4px;
+	background: var(--lad-paper);
+	color: var(--lad-ink);
+	font-size: 12.5px;
+}
+
+.logiadmin-wrap .description,
+.logiadmin-wrap p.description {
+	color: var(--lad-muted);
+	font-size: 13px;
+	font-style: normal;
+}
+
+/* ---------------------------------------------------------------------
+   Bandeau anthracite
+   --------------------------------------------------------------------- */
+.lad-hero {
+	position: relative;
+	padding: 0 var(--lad-gutter);
+	background: var(--lad-ink);
+	color: var(--lad-white);
+	overflow: hidden;
+}
+
+.lad-hero::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 4px;
+	background: repeating-linear-gradient(-45deg, var(--lad-yellow) 0 14px, var(--lad-ink) 14px 28px);
+	opacity: .9;
+}
+
+.lad-hero-top {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px 24px;
+	padding: 18px 0 6px;
+}
+
+.lad-brand {
+	display: block;
+	line-height: 0;
+}
+
+.lad-logo {
+	display: block;
+	width: auto;
+	height: 44px;
+}
+
+.lad-crumbs {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px 10px;
+	color: var(--lad-on-ink);
+	font-size: 13px;
+}
+
+.lad-crumbs a {
+	color: var(--lad-white) !important;
+	font-weight: 500;
+	text-decoration: none;
+	border-bottom: 2px solid transparent;
+}
+
+.lad-crumbs a:hover {
+	border-bottom-color: var(--lad-green-bright);
+}
+
+.lad-crumbs [aria-current] {
+	color: var(--lad-white);
+}
+
+.lad-hero-main {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) auto;
+	align-items: end;
+	gap: 24px;
+}
+
+.lad-hero-text {
+	padding: 10px 0 30px;
+}
+
+.logiadmin-wrap .lad-title {
+	margin: 0 0 8px;
+	padding: 0;
+	color: var(--lad-white);
+	font-size: clamp(28px, 3.2vw, 42px);
+	font-weight: 700;
+	line-height: 1.08;
+	letter-spacing: -.025em;
+}
+
+.lad-intro {
+	max-width: 70ch;
+	margin: 0;
+	color: var(--lad-on-ink);
+	font-size: 15px;
+}
+
+.lad-hero-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin-top: 18px;
+}
+
+.lad-hero-actions form {
+	margin: 0;
+}
+
+.lad-hero-actions .button:not(.button-primary) {
+	border-color: rgba(255, 255, 255, .55) !important;
+	background: transparent !important;
+	color: var(--lad-white) !important;
+}
+
+.lad-hero-actions .button:not(.button-primary):hover {
+	border-color: var(--lad-white) !important;
+	background: rgba(255, 255, 255, .08) !important;
+}
+
+.lad-hero-art {
+	width: clamp(110px, 11vw, 150px);
+	margin-bottom: 18px;
+}
+
+.lad-dashboard .lad-hero-art {
+	width: clamp(140px, 14vw, 190px);
+	margin-bottom: -6px;
+}
+
+/* Onglets : posés sur le bas du bandeau, l'onglet actif se fond dans la page */
+.lad-tabs {
+	position: relative;
+	z-index: 1;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px;
+	margin-top: -8px;
+}
+
+.lad-tab {
+	display: inline-flex;
+	align-items: center;
+	padding: 10px 18px 12px;
+	border-radius: 8px 8px 0 0;
+	color: var(--lad-on-ink) !important;
+	font-size: 14px;
+	font-weight: 500;
+	text-decoration: none;
+	transition: background .15s ease, color .15s ease;
+}
+
+.lad-tab:hover {
+	background: rgba(255, 255, 255, .08);
+	color: var(--lad-white) !important;
+}
+
+.lad-tab.is-active {
+	background: var(--lad-paper);
+	color: var(--lad-ink) !important;
+	font-weight: 600;
+}
+
+.lad-tabs + .lad-hero::after,
+.lad-hero:has(.lad-tabs)::after {
+	display: none;
+}
+
+.lad-tab:focus-visible {
+	outline: 3px solid var(--lad-yellow);
+	outline-offset: -3px;
+}
+
+/* ---------------------------------------------------------------------
+   Pictogrammes isométriques (cubes du logo LogiProf)
+   --------------------------------------------------------------------- */
+.lad-iso {
+	display: block;
+	width: 100%;
+	height: auto;
+	overflow: visible;
+}
+
+.lad-iso polygon {
+	stroke: var(--gap, var(--lad-paper));
+	stroke-width: 2.5;
+	stroke-linejoin: round;
+}
+
+.lad-iso .t { fill: var(--top, var(--lad-green-bright)); }
+.lad-iso .l { fill: var(--left, var(--lad-ink)); }
+.lad-iso .r { fill: var(--right, var(--lad-green)); }
+.lad-iso .mark .t,
+.lad-iso .mark .r { fill: var(--lad-yellow); }
+.lad-iso .mark .l { fill: var(--lad-yellow-deep); }
+.lad-iso .k {
+	fill: none;
+	stroke: var(--check, var(--lad-yellow));
+	stroke-width: 5;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+
+.lad-hero .lad-iso {
+	--gap: var(--lad-ink);
+	--left: var(--lad-green-deep);
+}
+
+@keyframes lad-drop {
+	from { opacity: 0; transform: translateY(-36px); }
+	to { opacity: 1; transform: none; }
+}
+
+.lad-dashboard .lad-hero-art .c {
+	animation: lad-drop .5s cubic-bezier(.2, .9, .3, 1.2) both;
+	animation-delay: calc(var(--i) * 70ms + 120ms);
+}
+
+/* ---------------------------------------------------------------------
+   Corps de page
+   --------------------------------------------------------------------- */
+.lad-body {
+	padding: 26px var(--lad-gutter) 0;
+}
+
+.logiadmin-wrap > .notice,
+.logiadmin-wrap > .updated,
+.logiadmin-wrap > .error,
+.logiadmin-wrap > div.settings-error {
+	margin: 18px var(--lad-gutter) 0;
+}
+
+.logiadmin-wrap .notice,
+body.logiadmin-screen .notice {
+	border-left-width: 4px;
+	border-radius: 6px;
+	box-shadow: none;
+}
+
+body.logiadmin-screen .notice-success,
+body.logiadmin-screen .updated {
+	border-left-color: var(--lad-green);
+}
+
+body.logiadmin-screen .notice-warning {
+	border-left-color: var(--lad-yellow);
+}
+
+body.logiadmin-screen .notice-error,
+body.logiadmin-screen .error {
+	border-left-color: var(--lad-red);
+}
+
+body.logiadmin-screen .notice p {
+	font-family: var(--lad-font);
+}
+
+.lad-card {
+	margin: 0 0 20px;
+	padding: 22px 24px;
+	border: 1px solid var(--lad-line);
+	border-radius: 10px;
+	background: var(--lad-white);
+}
+
+.lad-card > :last-child {
+	margin-bottom: 0;
+}
+
+.lad-columns {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 20px;
+	align-items: start;
+}
+
+.lad-columns > .lad-card,
+.lad-columns > form {
+	margin-bottom: 0;
+}
+
+.lad-columns + * {
+	margin-top: 20px;
+}
+
+.lad-split {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) minmax(300px, 380px);
+	gap: 20px;
+	align-items: start;
+}
+
+.lad-sticky {
+	position: sticky;
+	top: 46px;
+}
+
+.lad-step {
+	display: inline-grid;
+	place-items: center;
+	width: 26px;
+	height: 26px;
+	margin-right: 10px;
+	border-radius: 50%;
+	background: var(--lad-ink);
+	color: var(--lad-white);
+	font-size: 13px;
+	font-weight: 700;
+	vertical-align: 1px;
+}
+
+.lad-steps {
+	margin: 0 0 16px;
+	padding: 0;
+	list-style: none;
+	counter-reset: lad-step;
+}
+
+.lad-steps li {
+	position: relative;
+	margin: 0 0 10px;
+	padding-left: 36px;
+	counter-increment: lad-step;
+}
+
+.lad-steps li::before {
+	content: counter(lad-step);
+	position: absolute;
+	left: 0;
+	top: -1px;
+	display: grid;
+	place-items: center;
+	width: 24px;
+	height: 24px;
+	border-radius: 50%;
+	background: var(--lad-green-tint);
+	color: var(--lad-green);
+	font-size: 12px;
+	font-weight: 700;
+}
+
+.lad-steps--inline {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px 28px;
+}
+
+.lad-steps--inline li {
+	flex: 1 1 220px;
+	margin: 0;
+}
+
+.lad-list {
+	margin: 0 0 16px;
+	padding-left: 0;
+	list-style: none;
+}
+
+.lad-list li {
+	position: relative;
+	margin: 0 0 8px;
+	padding-left: 20px;
+}
+
+.lad-list li::before {
+	content: "";
+	position: absolute;
+	left: 2px;
+	top: .62em;
+	width: 7px;
+	height: 7px;
+	background: var(--lad-green);
+	transform: rotate(45deg);
+}
+
+.lad-list--plain li {
+	padding: 10px 0 10px 20px;
+	border-bottom: 1px solid var(--lad-line);
+}
+
+.lad-list--plain li::before {
+	top: 1.15em;
+}
+
+.lad-hint {
+	margin: 0 0 20px;
+	padding: 12px 16px;
+	border-left: 4px solid var(--lad-yellow);
+	border-radius: 6px;
+	background: var(--lad-yellow-soft);
+	color: var(--lad-ink);
+}
+
+.lad-empty {
+	padding: 22px !important;
+	color: var(--lad-muted);
+	text-align: center;
+}
+
+.lad-count {
+	margin: 0 0 8px;
+	color: var(--lad-muted);
+	font-size: 13px;
+	font-weight: 500;
+}
+
+.lad-pill {
+	display: inline-block;
+	padding: 2px 10px;
+	border-radius: 999px;
+	background: var(--lad-green-tint);
+	color: var(--lad-green-deep);
+	font-size: 12px;
+	font-weight: 600;
+}
+
+.lad-pill.is-muted {
+	background: var(--lad-paper);
+	color: var(--lad-muted);
+}
+
+/* Chiffres clés */
+.lad-stats {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+	gap: 14px;
+	margin: 0 0 20px;
+	max-width: none;
+}
+
+.lad-stats > div {
+	padding: 16px 18px;
+	border: 1px solid var(--lad-line);
+	border-left: 4px solid var(--lad-green);
+	border-radius: 8px;
+	background: var(--lad-white);
+}
+
+.lad-stats > div.is-warn {
+	border-left-color: var(--lad-yellow);
+}
+
+.lad-stats strong {
+	display: block;
+	margin: 0 0 2px;
+	color: var(--lad-ink);
+	font-size: 24px;
+	font-weight: 700;
+	line-height: 1.2;
+	letter-spacing: -.01em;
+}
+
+.lad-stats span {
+	display: block;
+	color: var(--lad-muted);
+	font-size: 13px;
+}
+
+/* ---------------------------------------------------------------------
+   Formulaires
+   --------------------------------------------------------------------- */
+.logiadmin-wrap input[type="text"],
+.logiadmin-wrap input[type="search"],
+.logiadmin-wrap input[type="url"],
+.logiadmin-wrap input[type="email"],
+.logiadmin-wrap input[type="number"],
+.logiadmin-wrap input[type="date"],
+.logiadmin-wrap input[type="password"],
+.logiadmin-wrap input:not([type]),
+.logiadmin-wrap select,
+.logiadmin-wrap textarea {
+	min-height: 38px;
+	padding: 6px 11px;
+	border: 1px solid var(--lad-line-strong);
+	border-radius: 8px;
+	background-color: var(--lad-white);
+	color: var(--lad-ink);
+	font-size: 14px;
+	box-shadow: none;
+}
+
+.logiadmin-wrap select {
+	padding-right: 32px;
+}
+
+.logiadmin-wrap input:focus,
+.logiadmin-wrap select:focus,
+.logiadmin-wrap textarea:focus {
+	border-color: var(--lad-green);
+	outline: none;
+	box-shadow: 0 0 0 3px rgba(6, 112, 48, .18);
+}
+
+.logiadmin-wrap input[readonly],
+.logiadmin-wrap textarea[readonly] {
+	background: var(--lad-paper-soft);
+}
+
+.logiadmin-wrap input[type="checkbox"],
+.logiadmin-wrap input[type="radio"] {
+	border-color: var(--lad-line-strong);
+}
+
+.logiadmin-wrap input[type="checkbox"]:checked {
+	border-color: var(--lad-green);
+	background: var(--lad-green);
+}
+
+.logiadmin-wrap input[type="checkbox"]:checked::before {
+	content: url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cpath%20d%3D%27M14.83%204.89l1.34.94-5.81%208.38H9.02L5.78%209.67l1.34-1.25%202.57%202.4z%27%20fill%3D%27%23ffffff%27%2F%3E%3C%2Fsvg%3E");
+}
+
+.logiadmin-wrap input[type="radio"]:checked::before {
+	background-color: var(--lad-green);
+}
+
+.logiadmin-wrap input[type="checkbox"]:focus,
+.logiadmin-wrap input[type="radio"]:focus {
+	border-color: var(--lad-green);
+	box-shadow: 0 0 0 2px rgba(6, 112, 48, .25);
+}
+
+.lad-form {
+	max-width: 760px;
+}
+
+.lad-field {
+	display: grid;
+	gap: 6px;
+	margin: 0 0 16px;
+}
+
+.lad-field input:not([type="checkbox"]):not([type="radio"]),
+.lad-field select,
+.lad-field textarea {
+	width: 100%;
+	max-width: 520px;
+}
+
+.lad-field--short input {
+	max-width: 160px !important;
+}
+
+.lad-label,
+.lad-field > .lad-label {
+	color: var(--lad-ink);
+	font-size: 13px;
+	font-weight: 600;
+}
+
+.lad-field-row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0 18px;
+	align-items: start;
+}
+
+.lad-field-row > * {
+	flex: 1 1 200px;
+}
+
+.lad-field-row > .lad-field--short {
+	flex: 0 1 170px;
+}
+
+.lad-field-row > .lad-check {
+	align-self: center;
+}
+
+.lad-checks {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px 22px;
+	margin: 0 0 16px;
+	padding: 0;
+	border: 0;
+}
+
+.lad-checks legend {
+	width: 100%;
+	margin-bottom: 8px;
+}
+
+.lad-check {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	margin: 0 0 10px;
+	font-weight: 500;
+}
+
+.lad-checks .lad-check {
+	margin: 0;
+}
+
+.lad-checklist {
+	padding: 12px 14px;
+	border: 1px solid var(--lad-line);
+	border-radius: 8px;
+	background: var(--lad-paper-soft);
+}
+
+.lad-input-unit {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	color: var(--lad-muted);
+}
+
+.lad-more {
+	margin: 4px 0 0;
+}
+
+.lad-more > summary,
+details.lad-card > summary {
+	cursor: pointer;
+	color: var(--lad-ink);
+	font-weight: 600;
+	list-style: none;
+}
+
+.lad-more > summary::before,
+details.lad-card > summary::before {
+	content: "";
+	display: inline-block;
+	width: 8px;
+	height: 8px;
+	margin: 0 10px 2px 2px;
+	border-right: 2px solid var(--lad-green);
+	border-bottom: 2px solid var(--lad-green);
+	transform: rotate(-45deg);
+	transition: transform .15s ease;
+}
+
+.lad-more[open] > summary::before,
+details.lad-card[open] > summary::before {
+	transform: rotate(45deg);
+}
+
+.lad-more > summary::-webkit-details-marker,
+details.lad-card > summary::-webkit-details-marker {
+	display: none;
+}
+
+details.lad-card > summary {
+	font-size: 16px;
+}
+
+details.lad-card[open] > summary {
+	margin-bottom: 16px;
+}
+
+.lad-more[open] > summary {
+	margin-bottom: 10px;
+}
+
+.lad-output {
+	width: 100%;
+	min-height: 120px;
+	font-size: 12.5px !important;
+	line-height: 1.5;
+	resize: vertical;
+}
+
+.lad-output-actions {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 10px;
+}
+
+.lad-feedback {
+	color: var(--lad-green);
+	font-weight: 600;
+}
+
+.lad-pre {
+	margin: 0;
+	padding: 12px;
+	border-radius: 8px;
+	background: var(--lad-ink);
+	color: #e8edf2;
+	font-size: 12px;
+	line-height: 1.6;
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.lad-pre code {
+	padding: 0;
+	background: none;
+	color: inherit;
+}
+
+.lad-copy {
+	display: inline-flex;
+	width: 100%;
+	max-width: 420px;
+	gap: 6px;
+}
+
+.lad-copy-input {
+	flex: 1;
+	min-width: 0;
+	font-size: 12.5px !important;
+}
+
+/* Barre d'outils (filtres, actions) */
+.lad-toolbar {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 10px;
+	margin: 0 0 16px;
+	padding: 12px 14px;
+	border: 1px solid var(--lad-line);
+	border-radius: 10px;
+	background: var(--lad-white);
+}
+
+.lad-toolbar label {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	margin: 0;
+	font-weight: 600;
+}
+
+.lad-toolbar label > span {
+	display: inline;
+	color: var(--lad-ink);
+}
+
+.lad-toolbar .lad-count {
+	margin: 0;
+}
+
+.lad-toolbar-spacer {
+	flex: 1 1 auto;
+}
+
+/* ---------------------------------------------------------------------
+   Boutons
+   --------------------------------------------------------------------- */
+.logiadmin-wrap .button,
+.logiadmin-wrap .button-secondary {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 6px;
+	min-height: 38px;
+	padding: 0 18px;
+	border: 1.5px solid var(--lad-ink);
+	border-radius: 999px;
+	background: var(--lad-white);
+	color: var(--lad-ink);
+	font-size: 14px;
+	font-weight: 600;
+	line-height: 1;
+	text-decoration: none;
+	box-shadow: none;
+	transition: background .15s ease, border-color .15s ease, color .15s ease;
+}
+
+.logiadmin-wrap .button:hover,
+.logiadmin-wrap .button:focus {
+	border-color: var(--lad-ink);
+	background: var(--lad-paper);
+	color: var(--lad-ink);
+}
+
+.logiadmin-wrap .button-primary,
+.logiadmin-wrap .button.button-primary {
+	border-color: var(--lad-green);
+	background: var(--lad-green);
+	color: var(--lad-white);
+}
+
+.logiadmin-wrap .button-primary:hover,
+.logiadmin-wrap .button-primary:focus,
+.logiadmin-wrap .button.button-primary:hover {
+	border-color: var(--lad-green-deep);
+	background: var(--lad-green-deep);
+	color: var(--lad-white);
+}
+
+.logiadmin-wrap .button[disabled],
+.logiadmin-wrap .button:disabled {
+	opacity: .55;
+	cursor: not-allowed;
+}
+
+.logiadmin-wrap .button-small,
+.logiadmin-wrap .button.button-small {
+	min-height: 30px;
+	padding: 0 12px;
+	font-size: 12.5px;
+}
+
+.logiadmin-wrap .lad-danger,
+.logiadmin-wrap .button.lad-danger,
+.logiadmin-wrap .lplms-danger-link {
+	border-color: var(--lad-red) !important;
+	color: var(--lad-red) !important;
+}
+
+.logiadmin-wrap .lad-danger:hover,
+.logiadmin-wrap .lplms-danger-link:hover {
+	background: var(--lad-red-soft) !important;
+}
+
+.logiadmin-wrap .button-link-delete,
+.logiadmin-wrap .lad-danger-link,
+.logiadmin-wrap .logisensei-delete-link {
+	border: 0;
+	background: none;
+	color: var(--lad-red) !important;
+	font-weight: 500;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.logiadmin-wrap .button-link {
+	color: var(--lad-green);
+	font-weight: 500;
+}
+
+.logiadmin-wrap p.submit {
+	margin: 8px 0 0;
+	padding: 0;
+}
+
+/* ---------------------------------------------------------------------
+   Tableaux
+   --------------------------------------------------------------------- */
+.logiadmin-wrap table.widefat {
+	border: 1px solid var(--lad-line);
+	border-radius: 10px;
+	border-collapse: separate;
+	border-spacing: 0;
+	background: var(--lad-white);
+	box-shadow: none;
+	overflow: hidden;
+}
+
+.logiadmin-wrap table.widefat thead th,
+.logiadmin-wrap table.widefat thead td {
+	padding: 12px 14px;
+	border-bottom: 1px solid var(--lad-line);
+	background: var(--lad-paper-soft);
+	color: var(--lad-ink-2);
+	font-size: 12px;
+	font-weight: 600;
+	letter-spacing: .03em;
+	text-transform: uppercase;
+}
+
+.logiadmin-wrap table.widefat td,
+.logiadmin-wrap table.widefat tbody th {
+	padding: 12px 14px;
+	color: var(--lad-ink);
+	font-size: 14px;
+	vertical-align: middle;
+}
+
+.logiadmin-wrap table.widefat tbody tr + tr td,
+.logiadmin-wrap table.widefat tbody tr + tr th {
+	border-top: 1px solid #edf0ea;
+}
+
+.logiadmin-wrap .striped > tbody > :nth-child(odd) {
+	background: var(--lad-white);
+}
+
+.logiadmin-wrap .striped > tbody > :nth-child(even) {
+	background: #fafbf8;
+}
+
+.logiadmin-wrap table.widefat tbody tr:hover {
+	background: var(--lad-green-tint);
+}
+
+.logiadmin-wrap table.widefat .check-column {
+	width: 44px;
+	padding: 12px 6px 12px 14px;
+	vertical-align: middle;
+}
+
+.logiadmin-wrap table.widefat .check-column input {
+	margin: 0;
+}
+
+.logiadmin-wrap .form-table th {
+	color: var(--lad-ink);
+	font-weight: 600;
+}
+
+/* ---------------------------------------------------------------------
+   Tableau de bord LogiAdmin
+   --------------------------------------------------------------------- */
+.lad-section {
+	margin: 0 0 30px;
+}
+
+.logiadmin-wrap .lad-section-title {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	margin: 0 0 14px;
+	color: var(--lad-muted);
+	font-size: 13px;
+	font-weight: 600;
+	letter-spacing: .08em;
+	text-transform: uppercase;
+}
+
+.lad-section-title::after {
+	content: "";
+	flex: 1;
+	height: 1px;
+	background: var(--lad-line-strong);
+}
+
+.lad-tiles {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+	gap: 18px;
+}
+
+.lad-tile {
+	--tile-bg: var(--lad-white);
+	--tile-fg: var(--lad-ink);
+	--tile-muted: var(--lad-muted);
+	--cta: var(--lad-green);
+	--chip: var(--lad-paper);
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: 18px;
+	min-height: 290px;
+	padding: 26px 26px 24px;
+	border-radius: 10px;
+	background: var(--tile-bg);
+	color: var(--tile-fg) !important;
+	text-decoration: none;
+	overflow: hidden;
+	transition: transform .2s ease, box-shadow .2s ease;
+}
+
+a.lad-tile:hover,
+a.lad-tile:focus-visible {
+	box-shadow: 0 16px 34px rgba(49, 58, 69, .16);
+	transform: translateY(-3px);
+}
+
+.lad-tile-art {
+	display: block;
+	width: 104px;
+	transition: transform .25s ease;
+}
+
+a.lad-tile:hover .lad-tile-art {
+	transform: translateY(-5px);
+}
+
+.lad-tile-art .lad-iso {
+	--gap: var(--tile-bg);
+}
+
+.lad-tile-body {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.lad-tile-title {
+	font-size: 22px;
+	font-weight: 700;
+	line-height: 1.15;
+	letter-spacing: -.02em;
+}
+
+.lad-tile-text {
+	color: var(--tile-muted);
+	font-size: 13.5px;
+}
+
+.lad-facts {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+	margin-top: 8px;
+}
+
+.lad-fact {
+	padding: 3px 10px;
+	border-radius: 999px;
+	background: var(--chip);
+	color: var(--tile-fg);
+	font-size: 12px;
+}
+
+.lad-fact b {
+	font-weight: 700;
+}
+
+.lad-fact.is-warn {
+	background: var(--lad-yellow);
+	color: var(--lad-ink);
+}
+
+.lad-tile-cta {
+	align-self: flex-start;
+	margin-top: auto;
+	padding-bottom: 3px;
+	border-bottom: 3px solid var(--cta);
+	font-weight: 700;
+}
+
+.lad-tile.is-off {
+	opacity: .6;
+	filter: grayscale(.6);
+}
+
+.lad-tile.is-off .lad-tile-cta {
+	border-bottom-style: dashed;
+}
+
+/* Une couleur par outil de formation, comme la mosaïque LogiOne */
+.lad-tile--logiplanning {
+	--tile-bg: var(--lad-ink);
+	--tile-fg: var(--lad-white);
+	--tile-muted: var(--lad-on-ink);
+	--cta: var(--lad-green-bright);
+	--chip: rgba(255, 255, 255, .1);
+}
+
+.lad-tile--logiplanning .lad-iso {
+	--left: #4a5563;
+}
+
+.lad-tile--export-sensei {
+	--tile-bg: var(--lad-green);
+	--tile-fg: var(--lad-white);
+	--tile-muted: #d4ecdc;
+	--cta: var(--lad-yellow);
+	--chip: rgba(255, 255, 255, .14);
+}
+
+.lad-tile--export-sensei .lad-iso {
+	--top: #8fe0ab;
+	--right: var(--lad-green-deep);
+}
+
+.lad-tile--compteurs {
+	--tile-bg: var(--lad-yellow);
+	--tile-fg: var(--lad-ink);
+	--tile-muted: #4b4320;
+	--cta: var(--lad-ink);
+	--chip: rgba(49, 58, 69, .1);
+}
+
+.lad-tile--compteurs .lad-iso .mark .t,
+.lad-tile--compteurs .lad-iso .mark .r {
+	fill: var(--lad-white);
+}
+
+.lad-tile--compteurs .lad-iso .mark .l {
+	fill: #e5e7e2;
+}
+
+.lad-tile--sensei-shortcodes,
+.lad-tile--accueil-groupe,
+.lad-tile--medias-inutilises,
+.lad-tile--menu-admin {
+	border: 1px solid var(--lad-line);
+}
+
+.lad-tiles--compact .lad-card {
+	margin: 0;
+}
+
+/* Reprise des anciennes extensions */
+.lad-migration {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-end;
+	justify-content: space-between;
+	gap: 16px 32px;
+	border-left: 6px solid var(--lad-green);
+}
+
+.lad-migration > div {
+	flex: 1 1 520px;
+}
+
+.lad-migration p {
+	margin: 0 0 8px;
+}
+
+.lad-migration-actions {
+	display: flex;
+	gap: 8px;
+}
+
+/* Interrupteurs des outils */
+.lad-switches {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+	gap: 10px 24px;
+	margin: 16px 0;
+}
+
+.lad-switch {
+	position: relative;
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	cursor: pointer;
+}
+
+.lad-switch input {
+	position: absolute;
+	opacity: 0;
+	pointer-events: none;
+}
+
+.lad-switch-ui {
+	position: relative;
+	flex: 0 0 42px;
+	height: 24px;
+	border-radius: 999px;
+	background: var(--lad-line-strong);
+	transition: background .15s ease;
+}
+
+.lad-switch-ui::after {
+	content: "";
+	position: absolute;
+	top: 3px;
+	left: 3px;
+	width: 18px;
+	height: 18px;
+	border-radius: 50%;
+	background: var(--lad-white);
+	box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+	transition: transform .15s ease;
+}
+
+.lad-switch input:checked + .lad-switch-ui {
+	background: var(--lad-green);
+}
+
+.lad-switch input:checked + .lad-switch-ui::after {
+	transform: translateX(18px);
+}
+
+.lad-switch input:focus-visible + .lad-switch-ui {
+	outline: 3px solid var(--lad-yellow);
+	outline-offset: 2px;
+}
+
+.lad-switch code {
+	margin-left: 4px;
+	font-size: 11.5px;
+}
+
+/* Message « copié » */
+.lad-toast {
+	position: fixed;
+	right: 24px;
+	bottom: 24px;
+	z-index: 100000;
+	padding: 12px 18px;
+	border-radius: 999px;
+	background: var(--lad-ink);
+	color: var(--lad-white);
+	font-family: var(--lad-font);
+	font-size: 14px;
+	font-weight: 500;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, .2);
+	opacity: 0;
+	transform: translateY(10px);
+	transition: opacity .2s ease, transform .2s ease;
+	pointer-events: none;
+}
+
+.lad-toast.is-visible {
+	opacity: 1;
+	transform: none;
+}
+
+.lad-toast::before {
+	content: "✓";
+	margin-right: 8px;
+	color: var(--lad-yellow);
+	font-weight: 700;
+}
+
+.lad-footer {
+	font-family: var(--lad-font);
+}
+
+/* =====================================================================
+   Outils : retouches propres à chaque écran
+   ===================================================================== */
+
+/* --- LogiPlanning --- */
+.lplms-admin .lplms-grid {
+	grid-template-columns: minmax(0, 1.4fr) minmax(300px, .6fr);
+	gap: 20px;
+	margin-top: 0;
+}
+
+.lplms-admin .lplms-grid > section > h2,
+.lplms-admin .lplms-days-section > h2 {
+	margin-top: 0;
+}
+
+.lplms-admin .lplms-panel {
+	max-width: none;
+	margin: 0 0 20px;
+	padding: 22px 24px;
+	border: 1px solid var(--lad-line);
+	border-radius: 10px;
+	background: var(--lad-white);
+}
+
+.lplms-admin .lplms-panel label,
+.lplms-admin .lplms-filter label {
+	font-weight: 600;
+}
+
+.lplms-admin .lplms-panel input[type="text"],
+.lplms-admin .lplms-panel input:not([type]),
+.lplms-admin .lplms-panel input[type="date"],
+.lplms-admin .lplms-panel select,
+.lplms-admin .lplms-panel textarea {
+	max-width: 520px;
+	margin-top: 6px;
+	width: 100%;
+}
+
+.lplms-admin .lplms-panel label .description {
+	display: block;
+	margin-top: 4px;
+	font-weight: 400;
+}
+
+.lplms-admin .lplms-filter {
+	margin: 0 0 18px;
+}
+
+.lplms-admin .lplms-filter label {
+	display: inline-flex;
+	gap: 8px;
+	margin: 0;
+}
+
+.lplms-admin .lplms-filter select {
+	display: inline-block;
+	width: auto;
+	min-width: 240px;
+	margin: 0;
+}
+
+.lplms-admin .lplms-category-picker,
+.lplms-admin .lplms-group-picker {
+	border-color: var(--lad-line);
+	border-radius: 8px;
+	background: var(--lad-paper-soft);
+}
+
+.lplms-admin .lplms-plans-table td {
+	vertical-align: top;
+}
+
+.lplms-admin .lplms-plans-table td:last-child {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	align-items: flex-start;
+}
+
+.lplms-admin .lplms-plan-edit {
+	flex: 1 1 100%;
+	margin: 4px 0 0;
+}
+
+.lplms-admin .lplms-plan-edit summary {
+	color: var(--lad-green);
+}
+
+.lplms-admin .lplms-plan-edit form {
+	border: 1px solid var(--lad-line);
+	border-radius: 8px;
+	background: var(--lad-paper-soft);
+}
+
+.lplms-admin .lplms-inline-duplicate {
+	display: flex;
+	flex: 1 1 100%;
+	gap: 6px;
+	margin: 0;
+}
+
+.lplms-admin .lplms-inline-duplicate input {
+	flex: 1;
+	max-width: 220px;
+}
+
+.lplms-admin .lplms-table-scroll {
+	max-height: 72vh;
+	margin: 0 0 14px;
+	border: 1px solid var(--lad-line);
+	border-radius: 10px;
+	background: var(--lad-white);
+	overflow: auto;
+}
+
+.lplms-admin .lplms-table-scroll > table.widefat {
+	border: 0;
+	border-radius: 0;
+	overflow: visible;
+}
+
+.lplms-admin .lplms-bulk-days thead th {
+	position: sticky;
+	top: 0;
+	z-index: 2;
+	white-space: nowrap;
+}
+
+.lplms-admin .lplms-bulk-days td,
+.lplms-admin .lplms-bulk-days th {
+	padding: 10px 8px;
+	vertical-align: top;
+}
+
+.lplms-admin .lplms-bulk-days td:first-child {
+	position: sticky;
+	left: 0;
+	z-index: 1;
+	background: inherit;
+	box-shadow: 1px 0 0 var(--lad-line);
+}
+
+.lplms-admin .lplms-bulk-days tbody tr {
+	background: var(--lad-white);
+}
+
+.lplms-admin .lplms-bulk-days tbody tr:hover {
+	background: var(--lad-white);
+}
+
+.lplms-admin .lplms-bulk-days tbody tr.is-vacation,
+.lplms-admin .lplms-bulk-days tbody tr.is-vacation td:first-child {
+	background: #f3f4f1;
+}
+
+.lplms-admin .lplms-bulk-days input:not([type="checkbox"]),
+.lplms-admin .lplms-bulk-days select,
+.lplms-admin .lplms-bulk-days textarea {
+	min-height: 34px;
+	font-size: 13px;
+}
+
+.lplms-admin .lplms-date-cell {
+	min-width: 150px;
+}
+
+.lplms-admin .lplms-day-edit {
+	display: inline-block;
+	margin-top: 6px;
+	font-size: 12px;
+	font-weight: 600;
+}
+
+.lplms-admin .lplms-course-code-preview {
+	border-radius: 6px;
+}
+
+.lplms-admin .lplms-bulk-actions {
+	position: sticky;
+	bottom: 0;
+	z-index: 3;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 12px;
+	margin: 0 0 24px;
+	padding: 12px 16px;
+	border: 1px solid var(--lad-line);
+	border-radius: 10px;
+	background: rgba(255, 255, 255, .96);
+	box-shadow: 0 -6px 18px rgba(49, 58, 69, .06);
+}
+
+.lplms-admin .lplms-propagate-button {
+	min-height: 28px !important;
+	margin-top: 6px !important;
+	padding: 0 10px !important;
+	font-size: 12px !important;
+}
+
+.lplms-admin .lplms-add-day .lplms-panel {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+.lplms-admin .lplms-message-admin-list {
+	grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+}
+
+.lplms-admin .lplms-message-admin-list .lplms-panel {
+	margin: 0;
+}
+
+.lplms-admin .lplms-branches-table input[type="color"] {
+	width: 48px;
+	height: 38px;
+	padding: 3px;
+	border: 1px solid var(--lad-line-strong);
+	border-radius: 8px;
+}
+
+.lplms-admin .lplms-table-scroll table.widefat:not(.lplms-bulk-days) th {
+	white-space: nowrap;
+}
+
+/* --- Export Sensei --- */
+.logisensei-wrap .logisensei-toolbar input[type="search"] {
+	min-width: 260px;
+}
+
+.logisensei-wrap .logisensei-course-table tbody tr.is-selected,
+.logisensei-wrap .logisensei-course-table tbody tr.is-selected:hover {
+	background: var(--lad-green-tint);
+}
+
+.logisensei-wrap .logisensei-course-table label {
+	cursor: pointer;
+}
+
+.logisensei-wrap .logisensei-progress {
+	margin-top: 20px;
+	max-width: 760px;
+}
+
+.logisensei-wrap .logisensei-progress-bar {
+	height: 12px;
+	border-radius: 999px;
+	background: var(--lad-paper);
+	overflow: hidden;
+}
+
+.logisensei-wrap .logisensei-progress-bar span {
+	background: repeating-linear-gradient(-45deg, var(--lad-green) 0 12px, var(--lad-green-bright) 12px 24px);
+	border-radius: 999px;
+}
+
+.logisensei-wrap .logisensei-spinner {
+	border-color: var(--lad-paper);
+	border-top-color: var(--lad-green);
+}
+
+/* --- Médias inutilisés --- */
+.logiprof-umf .logiprof-umf-thumb img,
+.logiprof-umf .logiprof-umf-thumb .dashicons {
+	border-radius: 6px;
+	background: var(--lad-paper);
+}
+
+.logiprof-umf .logiprof-umf-table td a:not(.button) {
+	word-break: break-all;
+}
+
+.logiprof-umf .logiprof-umf-table td:last-child {
+	white-space: nowrap;
+}
+
+.logiprof-umf .logiprof-umf-filters span {
+	display: inline;
+}
+
+/* --- Menu admin --- */
+.logiprof-amm .logiprof-amm-table td,
+.logiprof-amm .logiprof-amm-table th {
+	vertical-align: middle;
+}
+
+.logiprof-amm .logiprof-amm-drag-handle {
+	color: var(--lad-muted);
+	cursor: grab;
+}
+
+.logiprof-amm .logiprof-amm-show-column,
+.logiprof-amm .logiprof-amm-show-cell {
+	width: 120px;
+	text-align: center;
+}
+
+.logiprof-amm .logiprof-amm-status {
+	display: inline-block;
+	padding: 3px 10px;
+	border-radius: 999px;
+	font-size: 12px;
+	font-weight: 600;
+}
+
+.logiprof-amm .logiprof-amm-status.is-main {
+	background: var(--lad-green-tint);
+	color: var(--lad-green-deep);
+}
+
+.logiprof-amm .logiprof-amm-status.is-relocated {
+	background: var(--lad-yellow-soft);
+	color: #6b5300;
+}
+
+.logiprof-amm .logiprof-amm-status.is-locked {
+	background: var(--lad-paper);
+	color: var(--lad-muted);
+}
+
+.logiprof-amm .logiprof-amm-table tr.ui-sortable-helper {
+	display: table;
+	background: var(--lad-white);
+	box-shadow: 0 10px 24px rgba(49, 58, 69, .18);
+}
+
+.logiprof-amm .logiprof-amm-group h2 {
+	font-size: 16px;
+}
+
+.logiprof-amm .logiprof-amm-group ul {
+	margin: 0;
+}
+
+/* --- Accueil selon groupe --- */
+.lad-accueil .lad-table td {
+	word-break: break-all;
+}
+
+/* =====================================================================
+   Petits écrans
+   ===================================================================== */
+@media (max-width: 1100px) {
+	.lad-split,
+	.lplms-admin .lplms-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.lad-sticky {
+		position: static;
+	}
+}
+
+@media (max-width: 960px) {
+	.lad-columns {
+		grid-template-columns: 1fr;
+	}
+
+	.lplms-admin .lplms-message-admin-list {
+		grid-template-columns: 1fr;
+	}
+}
+
+@media (max-width: 782px) {
+	.lad-hero-main {
+		grid-template-columns: 1fr;
+	}
+
+	.lad-hero-art {
+		display: none;
+	}
+
+	.lad-logo {
+		height: 36px;
+	}
+
+	.lad-tab {
+		padding: 8px 12px 10px;
+		font-size: 13px;
+	}
+
+	.lad-tile {
+		min-height: 0;
+	}
+
+	.lad-toolbar {
+		align-items: stretch;
+	}
+
+	.lad-toolbar > * {
+		flex: 1 1 100%;
+	}
+
+	.lad-toolbar-spacer {
+		display: none;
+	}
+
+	.logiadmin-wrap table.widefat td,
+	.logiadmin-wrap table.widefat th {
+		padding: 10px;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.lad-dashboard .lad-hero-art .c {
+		animation: none;
+	}
+
+	.lad-tile,
+	.lad-tile-art,
+	.lad-toast {
+		transition: none;
+	}
+}
+
+/* LogiPlanning : plans en pleine largeur, formulaires côte à côte */
+.lplms-tab-plans .lplms-grid {
+	grid-template-columns: 1fr;
+}
+
+.lplms-tab-plans .lplms-grid > section:last-child {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	grid-template-rows: auto auto;
+	grid-auto-flow: column;
+	column-gap: 20px;
+}
+
+.lplms-admin .lplms-bulk-days select {
+	min-width: 150px;
+}
+
+.lplms-admin .lplms-bulk-days .lplms-fields-by-group summary {
+	color: var(--lad-green);
+	font-size: 12.5px;
+}
+
+@media (max-width: 960px) {
+	.lplms-tab-plans .lplms-grid > section:last-child {
+		grid-template-columns: 1fr;
+		grid-auto-flow: row;
+	}
+}
+
+/* Les blocs masqués par les scripts restent masqués, même stylés en grille ou en flex. */
+.logiadmin-wrap [hidden] {
+	display: none !important;
+}
+
+.lad-hero-art .lad-iso {
+	max-height: 132px;
+	width: auto;
+	margin-left: auto;
+}
+
+.lad-dashboard .lad-hero-art .lad-iso {
+	max-height: 190px;
+}
+
+.logiadmin-wrap table.widefat {
+	width: 100%;
+}
+
+.logiadmin-wrap.lplms-admin table.lplms-bulk-days td,
+.logiadmin-wrap.lplms-admin table.lplms-bulk-days th {
+	vertical-align: top;
+}
+
+.lplms-admin .lplms-bulk-days .lplms-category-picker {
+	max-height: 132px;
+	min-width: 220px;
+}
+
+.lplms-admin .lplms-bulk-days textarea {
+	min-width: 200px;
+}
+
+/* Menu admin : page d'accueil en cartes */
+.logiprof-amm .logiprof-amm-group h2 a {
+	color: var(--lad-ink);
+	text-decoration: none;
+}
+
+.logiprof-amm .logiprof-amm-group ul {
+	padding: 0;
+	list-style: none;
+}
+
+.logiprof-amm .logiprof-amm-group li a {
+	display: block;
+	padding: 4px 0;
+	text-decoration: none;
+}
+
+.logiprof-amm .logiprof-amm-group li a:hover {
+	text-decoration: underline;
+}

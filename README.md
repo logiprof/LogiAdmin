@@ -1,4 +1,14 @@
-# LogiAdmin by LogiProf — 1.0.2
+# LogiAdmin by LogiProf — 1.0.3
+
+## Nouveautés 1.0.3
+
+- LogiPlanning : si LogiOne est actif avec son module LogiPlanning, LogiAdmin le lui laisse (page des élèves,
+  vue enseignant, administration). Les deux versions se partageaient le même shortcode et le même nom de
+  feuille de style, ce qui pouvait afficher le planning sans mise en forme. La tuile du tableau de bord
+  mène alors à LogiPlanning dans LogiOne. Les données restent les mêmes tables `wp_logiplanning_*`.
+- Si LogiAdmin sert LogiPlanning (LogiOne absent, ou son module LogiPlanning coupé), ses styles et scripts
+  portent le nom `logiadmin-logiplanning`.
+
 
 ## Nouveautés 1.0.2
 

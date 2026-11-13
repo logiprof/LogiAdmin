@@ -13,6 +13,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 final class LogiPlanning_LMS {
 	const VERSION   = '1.2.5';
 	const PAGE      = 'logiplanning-lms';
+	/** Nom propre à LogiAdmin pour le style et le script : LogiOne utilise aussi « logiplanning-lms ». */
+	const ASSET     = 'logiadmin-logiplanning';
 	const SHORTCODE = 'logiplanning_lms';
 	const NONCE     = 'logiplanning_lms_nonce';
 
@@ -239,19 +241,19 @@ final class LogiPlanning_LMS {
 	}
 
 	public static function register_assets() {
-		wp_register_style( 'logiplanning-lms', plugins_url( 'assets/logiplanning-lms.css', __FILE__ ), array(), self::VERSION );
-		wp_register_script( 'logiplanning-lms', plugins_url( 'assets/logiplanning-lms.js', __FILE__ ), array(), self::VERSION, true );
+		wp_register_style( self::ASSET, plugins_url( 'assets/logiplanning-lms.css', __FILE__ ), array(), self::VERSION );
+		wp_register_script( self::ASSET, plugins_url( 'assets/logiplanning-lms.js', __FILE__ ), array(), self::VERSION, true );
 	}
 
 	private static function enqueue_assets() {
 		if ( self::$assets_loaded ) {
 			return;
 		}
-		if ( ! wp_style_is( 'logiplanning-lms', 'registered' ) ) {
+		if ( ! wp_style_is( self::ASSET, 'registered' ) ) {
 			self::register_assets();
 		}
-		wp_enqueue_style( 'logiplanning-lms' );
-		wp_enqueue_script( 'logiplanning-lms' );
+		wp_enqueue_style( self::ASSET );
+		wp_enqueue_script( self::ASSET );
 		self::$assets_loaded = true;
 	}
 

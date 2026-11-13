@@ -21,6 +21,9 @@ final class LogiAdmin {
 	/** @var array Outils non chargés car l'ancienne extension est encore active. */
 	private static $conflicts = array();
 
+	/** @var array Outils déjà fournis par une autre extension LogiProf (ex. LogiPlanning dans LogiOne). */
+	private static $external = array();
+
 	/** @var array|null */
 	private static $iso = null;
 
@@ -54,6 +57,8 @@ final class LogiAdmin {
 				'group'   => 'formation',
 				'text'    => self::t( 'Plans de formation par classe, import Excel, journées, branches, messages et agenda.' ),
 				'class'   => 'LogiPlanning_LMS',
+				// LogiOne contient son propre LogiPlanning (mêmes tables, même shortcode) : s'il est actif, c'est lui qui sert.
+				'provider' => array( 'class' => 'LogiOne_Planning', 'name' => 'LogiOne' ),
 				'legacy'  => 'logiplanning-lms/logiplanning-lms.php',
 				'name'    => 'LogiPlanning LMS',
 				'page'    => 'logiplanning-lms',
@@ -157,6 +162,13 @@ final class LogiAdmin {
 		// Pas de traduction à ce stade (trop tôt) : seules les données techniques sont lues.
 		foreach ( self::modules( false ) as $key => $module ) {
 			if ( in_array( $key, $disabled, true ) ) {
+				continue;
+			}
+
+			// Un autre outil LogiProf fournit déjà ce module : LogiAdmin s'efface pour éviter deux versions
+			// concurrentes du même shortcode et des mêmes styles.
+			if ( ! empty( $module['provider']['class'] ) && class_exists( $module['provider']['class'], false ) ) {
+				self::$external[ $key ] = $module;
 				continue;
 			}
 
@@ -408,6 +420,9 @@ final class LogiAdmin {
 		}
 
 		foreach ( self::modules() as $key => $module ) {
+			if ( ! self::is_loaded( $key ) ) {
+				continue; // Page d'un outil fourni ailleurs (LogiOne) : on n'y touche pas.
+			}
 			if ( $page === $module['page'] || 0 === strpos( $page, $module['page'] . '-' ) ) {
 				return $key;
 			}
@@ -639,16 +654,21 @@ final class LogiAdmin {
 		$can      = current_user_can( $module['cap'] ) || current_user_can( 'manage_options' );
 		$loaded   = self::is_loaded( $key );
 		$conflict = isset( self::$conflicts[ $key ] );
-		$facts    = $loaded ? self::facts( $key ) : array();
-		$tag      = $loaded && $can ? 'a' : 'div';
-		$href     = $loaded && $can ? ' href="' . esc_url( self::module_url( $key ) ) . '"' : '';
-		$classes  = 'lad-tile lad-tile--' . $key . ( $loaded ? '' : ' is-off' );
+		$external = isset( self::$external[ $key ] );
+		$open     = ( $loaded || $external ) && $can;
+		$facts    = ( $loaded || $external ) ? self::facts( $key ) : array();
+		$tag      = $open ? 'a' : 'div';
+		$href     = $open ? ' href="' . esc_url( self::module_url( $key ) ) . '"' : '';
+		$classes  = 'lad-tile lad-tile--' . $key . ( ( $loaded || $external ) ? '' : ' is-off' );
 		?>
 		<<?php echo $tag; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> class="<?php echo esc_attr( $classes ); ?>"<?php echo $href; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
 			<span class="lad-tile-art"><?php echo self::iso( $key ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
 			<span class="lad-tile-body">
 				<strong class="lad-tile-title"><?php echo esc_html( $module['title'] ); ?></strong>
 				<span class="lad-tile-text"><?php echo esc_html( $module['text'] ); ?></span>
+				<?php if ( $external ) : ?>
+					<span class="lad-tile-text"><em><?php /* translators: %s: nom de l'extension */ echo esc_html( sprintf( __( 'Cet outil est géré par %s : sa page, ses réglages et la page des élèves sont ceux de %s.', 'logiadmin' ), $module['provider']['name'], $module['provider']['name'] ) ); ?></em></span>
+				<?php endif; ?>
 				<?php if ( $facts ) : ?>
 					<span class="lad-facts">
 						<?php foreach ( $facts as $fact ) : ?>
@@ -659,7 +679,11 @@ final class LogiAdmin {
 			</span>
 			<span class="lad-tile-cta">
 				<?php
-				if ( $conflict ) {
+				if ( $external ) {
+					/* translators: %s: nom de l'extension, ex. LogiOne */
+					echo esc_html( sprintf( __( 'Ouvrir dans %s', 'logiadmin' ), $module['provider']['name'] ) );
+					echo ' <span aria-hidden="true">→</span>';
+				} elseif ( $conflict ) {
 					esc_html_e( 'En pause : ancienne extension active', 'logiadmin' );
 				} elseif ( $is_disabled ) {
 					esc_html_e( 'Outil désactivé', 'logiadmin' );

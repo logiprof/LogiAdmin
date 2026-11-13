@@ -2,7 +2,7 @@
 /**
  * Plugin Name: LogiAdmin
  * Description: Les outils d'administration LogiProf réunis dans une seule extension : LogiPlanning, Export Sensei, Shortcodes Sensei, Compteurs, Accueil selon groupe, Médias inutilisés et Menu admin. Reprend les données des anciennes extensions sans rien effacer.
- * Version: 1.0.2
+ * Version: 1.0.3
  * Author: Logiprof
  * Text Domain: logiadmin
  * Requires at least: 6.0
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'LOGIADMIN_VERSION', '1.0.2' );
+define( 'LOGIADMIN_VERSION', '1.0.3' );
 define( 'LOGIADMIN_FILE', __FILE__ );
 define( 'LOGIADMIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'LOGIADMIN_URL', plugin_dir_url( __FILE__ ) );

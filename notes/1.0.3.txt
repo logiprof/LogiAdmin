@@ -1,0 +1,3 @@
+Nouveautés de la version 1.0.3 :
+• LogiPlanning : quand LogiOne est installé, c'est son LogiPlanning qui sert (page des élèves, vue enseignant, administration). LogiAdmin ne charge plus une deuxième version du même outil, ce qui cassait l'affichage du planning.
+• Si LogiAdmin sert LogiPlanning, ses styles portent un nom à lui et ne peuvent plus être remplacés par ceux d'une autre extension.

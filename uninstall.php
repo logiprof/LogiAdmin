@@ -3,7 +3,7 @@
  * Désinstallation de LogiAdmin.
  *
  * Volontairement prudente : seules les deux petites options propres à LogiAdmin sont retirées.
- * Les données des outils (tables LogiPlanning, historique et réglages d'export, réglages du menu,
+ * Les données des outils (historique et réglages d'export, réglages du menu,
  * URL de secours, profils autorisés des cours, etc.) sont conservées, pour pouvoir réinstaller
  * LogiAdmin ou les anciennes extensions sans rien perdre.
  */

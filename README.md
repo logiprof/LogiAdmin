@@ -1,14 +1,16 @@
-# LogiAdmin by LogiProf — 1.0.3
+# LogiAdmin by LogiProf — 1.0.4
+
+## Nouveautés 1.0.4
+
+- LogiPlanning est retiré de LogiAdmin : il est géré par LogiOne (page des élèves, vue enseignant,
+  administration des plans). LogiAdmin réunit désormais six outils.
+- Les plannings ne sont pas touchés : plans, journées, branches et messages restent dans les tables
+  `wp_logiplanning_*`, que LogiOne utilise. Aucune table n'est supprimée, ni à la mise à jour ni à la désinstallation.
 
 ## Nouveautés 1.0.3
 
-- LogiPlanning : si LogiOne est actif avec son module LogiPlanning, LogiAdmin le lui laisse (page des élèves,
-  vue enseignant, administration). Les deux versions se partageaient le même shortcode et le même nom de
-  feuille de style, ce qui pouvait afficher le planning sans mise en forme. La tuile du tableau de bord
-  mène alors à LogiPlanning dans LogiOne. Les données restent les mêmes tables `wp_logiplanning_*`.
-- Si LogiAdmin sert LogiPlanning (LogiOne absent, ou son module LogiPlanning coupé), ses styles et scripts
-  portent le nom `logiadmin-logiplanning`.
-
+- LogiPlanning était à la fois dans LogiOne et dans LogiAdmin, avec le même shortcode et le même nom de
+  feuille de style : le planning pouvait s'afficher sans mise en forme. LogiAdmin le laissait à LogiOne.
 
 ## Nouveautés 1.0.2
 
@@ -44,12 +46,11 @@ installer à la main une version de LogiAdmin qui contient la nouvelle clé publ
 - Nouveau lien « Voir l'accueil public » dans la barre d'administration.
 - Les élèves restent toujours envoyés vers leur page d'accueil, même s'ils ajoutent ces paramètres à l'adresse.
 
-Une seule extension d'administration qui réunit sept outils LogiProf, à l'habillage LogiOne
+Une seule extension d'administration qui réunit six outils LogiProf, à l'habillage LogiOne
 (anthracite, vert, jaune « marquage d'entrepôt », police Poppins intégrée, pictogrammes en cubes).
 
 | Outil | Ancienne extension | Page |
 |---|---|---|
-| LogiPlanning | LogiPlanning LMS 1.2.5 | LogiAdmin › LogiPlanning |
 | Export Sensei | LogiSensei Export Pro 0.4.0 | LogiAdmin › Export Sensei |
 | Shortcodes Sensei | Sensei Shortcode 1.3.9 | LogiAdmin › Shortcodes Sensei |
 | Compteurs | Logiprof Animated Counters 1.4.0 | LogiAdmin › Compteurs |
@@ -60,7 +61,7 @@ Une seule extension d'administration qui réunit sept outils LogiProf, à l'habi
 ## Installation
 
 1. Extensions › Ajouter › Téléverser `logiadmin.zip`, puis Activer.
-2. À l'activation, LogiAdmin désactive les sept anciennes extensions (sans lancer leurs routines
+2. À l'activation, LogiAdmin désactive les six anciennes extensions (sans lancer leurs routines
    de désactivation) et reprend leur travail.
 3. Le tableau de bord LogiAdmin confirme la reprise. Les anciennes extensions peuvent ensuite être
    supprimées : aucune n'efface de données à la suppression.
@@ -70,11 +71,10 @@ Une seule extension d'administration qui réunit sept outils LogiProf, à l'habi
 Aucune donnée n'est copiée, déplacée ni renommée : LogiAdmin lit exactement les mêmes tables,
 réglages et métadonnées que les anciennes extensions.
 
-- Tables `wp_logiplanning_plans`, `_days`, `_branches`, `_messages` (vérifiées par dbDelta, qui n'efface rien).
 - Réglages `logisensei_export_settings`, `logisensei_export_history`, `logiprof_amm_hidden_slugs`,
   `logiprof_amm_menu_order`, `logiprof_um_connected_home_url`.
 - Métadonnées `_logiprof_allowed_profile_roles` (cours) et `_logiprof_um_connected_home_url` (utilisateurs).
-- Les shortcodes `[logiplanning_lms]`, `[logiprof_sensei]`, `[logiprof_compteurs]`, `[logiprof_compteur]`,
+- Les shortcodes `[logiprof_sensei]`, `[logiprof_compteurs]`, `[logiprof_compteur]`,
   `[logiprof_counters]`, `[logiprof_counter]` gardent leur nom et leur rendu.
 - Le menu parent garde l'identifiant `logiprof-tools` : l'ordre et les éléments rangés par « Menu admin » restent valables.
 
@@ -97,7 +97,6 @@ fatale) et propose un bouton pour revenir à LogiAdmin.
   refusait aussi les adresses commençant par « / ».
 - Export Sensei : un administrateur sans le droit Sensei « edit_courses » ne voyait pas l'outil ;
   un export reste téléchargeable si le dossier d'export a été renommé.
-- LogiPlanning : le tableau des journées ne relit plus les catégories pour chaque ligne (beaucoup plus rapide sur un long plan).
 - Shortcodes Sensei : le script du générateur était chargé deux fois.
 
 ## Ergonomie
@@ -106,6 +105,5 @@ fatale) et propose un bouton pour revenir à LogiAdmin.
 - Bandeau commun, fil d'Ariane, onglets, notifications et confirmations avant suppression.
 - Shortcodes Sensei : seuls les champs utiles au type choisi s'affichent ; groupe et cours se choisissent dans une liste.
 - Compteurs : aperçu en direct avec les vrais chiffres du site, palettes prêtes (LogiOne, Anthracite, Sarcelle).
-- LogiPlanning : tableau des journées pleine largeur, en-tête figé, barre d'enregistrement toujours visible.
 - Export Sensei : compteur de cours sélectionnés, « Tout sélectionner / désélectionner ».
 - Menu admin : la colonne « Après enregistrement » suit les cases cochées en direct.

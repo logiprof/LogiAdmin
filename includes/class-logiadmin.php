@@ -21,8 +21,7 @@ final class LogiAdmin {
 	/** @var array Outils non chargés car l'ancienne extension est encore active. */
 	private static $conflicts = array();
 
-	/** @var array Outils déjà fournis par une autre extension LogiProf (ex. LogiPlanning dans LogiOne). */
-	private static $external = array();
+	
 
 	/** @var array|null */
 	private static $iso = null;
@@ -51,20 +50,6 @@ final class LogiAdmin {
 
 	private static function raw_modules() {
 		return array(
-			'logiplanning'      => array(
-				'title'   => self::t( 'LogiPlanning' ),
-				'menu'    => self::t( 'LogiPlanning' ),
-				'group'   => 'formation',
-				'text'    => self::t( 'Plans de formation par classe, import Excel, journées, branches, messages et agenda.' ),
-				'class'   => 'LogiPlanning_LMS',
-				// LogiOne contient son propre LogiPlanning (mêmes tables, même shortcode) : s'il est actif, c'est lui qui sert.
-				'provider' => array( 'class' => 'LogiOne_Planning', 'name' => 'LogiOne' ),
-				'legacy'  => 'logiplanning-lms/logiplanning-lms.php',
-				'name'    => 'LogiPlanning LMS',
-				'page'    => 'logiplanning-lms',
-				'cap'     => 'manage_options',
-				'front'   => '[logiplanning_lms]',
-			),
 			'export-sensei'     => array(
 				'title'   => self::t( 'Export Sensei' ),
 				'menu'    => self::t( 'Export Sensei' ),
@@ -165,12 +150,7 @@ final class LogiAdmin {
 				continue;
 			}
 
-			// Un autre outil LogiProf fournit déjà ce module : LogiAdmin s'efface pour éviter deux versions
-			// concurrentes du même shortcode et des mêmes styles.
-			if ( ! empty( $module['provider']['class'] ) && class_exists( $module['provider']['class'], false ) ) {
-				self::$external[ $key ] = $module;
-				continue;
-			}
+			
 
 			// L'ancienne extension est encore active : on ne charge pas le doublon (évite toute erreur fatale).
 			if ( class_exists( $module['class'], false ) ) {
@@ -260,9 +240,7 @@ final class LogiAdmin {
 			return;
 		}
 
-		if ( self::is_loaded( 'logiplanning' ) && class_exists( 'LogiPlanning_LMS', false ) ) {
-			LogiPlanning_LMS::activate();
-		}
+		
 
 		// Le repérage des médias inutilisés a été corrigé : l'ancien rapport en cache est recalculé.
 		delete_transient( 'logiprof_umf_report' );
@@ -421,7 +399,7 @@ final class LogiAdmin {
 
 		foreach ( self::modules() as $key => $module ) {
 			if ( ! self::is_loaded( $key ) ) {
-				continue; // Page d'un outil fourni ailleurs (LogiOne) : on n'y touche pas.
+				continue;
 			}
 			if ( $page === $module['page'] || 0 === strpos( $page, $module['page'] . '-' ) ) {
 				return $key;
@@ -654,21 +632,17 @@ final class LogiAdmin {
 		$can      = current_user_can( $module['cap'] ) || current_user_can( 'manage_options' );
 		$loaded   = self::is_loaded( $key );
 		$conflict = isset( self::$conflicts[ $key ] );
-		$external = isset( self::$external[ $key ] );
-		$open     = ( $loaded || $external ) && $can;
-		$facts    = ( $loaded || $external ) ? self::facts( $key ) : array();
-		$tag      = $open ? 'a' : 'div';
-		$href     = $open ? ' href="' . esc_url( self::module_url( $key ) ) . '"' : '';
-		$classes  = 'lad-tile lad-tile--' . $key . ( ( $loaded || $external ) ? '' : ' is-off' );
+		$facts    = $loaded ? self::facts( $key ) : array();
+		$tag      = $loaded && $can ? 'a' : 'div';
+		$href     = $loaded && $can ? ' href="' . esc_url( self::module_url( $key ) ) . '"' : '';
+		$classes  = 'lad-tile lad-tile--' . $key . ( $loaded ? '' : ' is-off' );
 		?>
 		<<?php echo $tag; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> class="<?php echo esc_attr( $classes ); ?>"<?php echo $href; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
 			<span class="lad-tile-art"><?php echo self::iso( $key ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
 			<span class="lad-tile-body">
 				<strong class="lad-tile-title"><?php echo esc_html( $module['title'] ); ?></strong>
 				<span class="lad-tile-text"><?php echo esc_html( $module['text'] ); ?></span>
-				<?php if ( $external ) : ?>
-					<span class="lad-tile-text"><em><?php /* translators: %s: nom de l'extension */ echo esc_html( sprintf( __( 'Cet outil est géré par %s : sa page, ses réglages et la page des élèves sont ceux de %s.', 'logiadmin' ), $module['provider']['name'], $module['provider']['name'] ) ); ?></em></span>
-				<?php endif; ?>
+				
 				<?php if ( $facts ) : ?>
 					<span class="lad-facts">
 						<?php foreach ( $facts as $fact ) : ?>
@@ -679,11 +653,7 @@ final class LogiAdmin {
 			</span>
 			<span class="lad-tile-cta">
 				<?php
-				if ( $external ) {
-					/* translators: %s: nom de l'extension, ex. LogiOne */
-					echo esc_html( sprintf( __( 'Ouvrir dans %s', 'logiadmin' ), $module['provider']['name'] ) );
-					echo ' <span aria-hidden="true">→</span>';
-				} elseif ( $conflict ) {
+				if ( $conflict ) {
 					esc_html_e( 'En pause : ancienne extension active', 'logiadmin' );
 				} elseif ( $is_disabled ) {
 					esc_html_e( 'Outil désactivé', 'logiadmin' );
@@ -709,21 +679,6 @@ final class LogiAdmin {
 		$facts = array();
 
 		switch ( $key ) {
-			case 'logiplanning':
-				$plans_table = $wpdb->prefix . 'logiplanning_plans';
-				$days_table  = $wpdb->prefix . 'logiplanning_days';
-				if ( $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $plans_table ) ) === $plans_table ) {
-					$plans = (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$plans_table}" ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-					$days  = (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$days_table}" ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-					$next  = $wpdb->get_var( $wpdb->prepare( "SELECT MIN(training_date) FROM {$days_table} WHERE training_date >= %s AND is_vacation = 0", current_time( 'Y-m-d' ) ) ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-					$facts[] = array( number_format_i18n( $plans ), _n( 'plan', 'plans', $plans, 'logiadmin' ) );
-					$facts[] = array( number_format_i18n( $days ), _n( 'journée', 'journées', $days, 'logiadmin' ) );
-					if ( $next ) {
-						$facts[] = array( date_i18n( 'j M', strtotime( $next ) ), __( 'prochain cours', 'logiadmin' ) );
-					}
-				}
-				break;
-
 			case 'export-sensei':
 				$history = get_option( 'logisensei_export_history', array() );
 				$history = is_array( $history ) ? $history : array();
@@ -788,7 +743,7 @@ final class LogiAdmin {
 		<section class="lad-card lad-migration">
 			<div>
 				<h2><?php esc_html_e( 'Reprise terminée', 'logiadmin' ); ?></h2>
-				<p><?php esc_html_e( 'LogiAdmin a repris le travail des anciennes extensions. Plans, journées, branches, messages, historique des exports, réglages et choix de menu sont conservés tels quels.', 'logiadmin' ); ?></p>
+				<p><?php esc_html_e( 'LogiAdmin a repris le travail des anciennes extensions. Historique des exports, réglages, profils des cours et choix de menu sont conservés tels quels.', 'logiadmin' ); ?></p>
 				<p><strong><?php esc_html_e( 'Anciennes extensions désactivées :', 'logiadmin' ); ?></strong> <?php echo esc_html( implode( ', ', $names ) ); ?>.</p>
 				<p class="description"><?php esc_html_e( 'Vous pouvez les supprimer depuis la page Extensions : aucune d’elles n’efface de données à la suppression. Les shortcodes déjà placés dans vos pages continuent de fonctionner.', 'logiadmin' ); ?></p>
 			</div>

@@ -1,0 +1,3 @@
+Nouveautés de la version 1.0.4 :
+• LogiPlanning est retiré de LogiAdmin : il est géré par LogiOne (page des élèves, vue enseignant, administration des plans).
+• Vos plannings ne sont pas touchés : plans, journées, branches et messages restent dans leurs tables, utilisées par LogiOne.

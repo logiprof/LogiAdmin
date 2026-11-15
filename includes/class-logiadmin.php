@@ -86,6 +86,18 @@ final class LogiAdmin {
 				'cap'     => 'manage_options',
 				'front'   => '[logiprof_compteurs]',
 			),
+			'lecons-pleine-largeur' => array(
+				'title'   => self::t( 'Leçons pleine largeur' ),
+				'menu'    => self::t( 'Leçons pleine largeur' ),
+				'group'   => 'formation',
+				'text'    => self::t( 'Le contenu des leçons et des quiz Sensei occupe toute la largeur, avec une marge réglable.' ),
+				'class'   => 'LPL_Sensei_Pleine_Largeur',
+				'legacy'  => 'sensei-lecons-pleine-largeur/sensei-lecons-pleine-largeur.php',
+				'name'    => 'Sensei – Leçons pleine largeur',
+				'page'    => 'lpl-reglages',
+				'cap'     => 'manage_options',
+				'front'   => '',
+			),
 			'accueil-groupe'    => array(
 				'title'   => self::t( 'Accueil selon groupe' ),
 				'menu'    => self::t( 'Accueil selon groupe' ),
@@ -702,6 +714,13 @@ final class LogiAdmin {
 				$facts[] = array( number_format_i18n( $total ), _n( 'compte', 'comptes', $total, 'logiadmin' ) );
 				$facts[] = array( number_format_i18n( (int) wp_count_posts( 'course' )->publish ), __( 'cours', 'logiadmin' ) );
 				$facts[] = array( number_format_i18n( $lessons ), _n( 'leçon', 'leçons', $lessons, 'logiadmin' ) );
+				break;
+
+			case 'lecons-pleine-largeur':
+				$r       = LPL_Sensei_Pleine_Largeur::reglages();
+				$facts[] = array( $r['marge'] . ' px', __( 'de marge', 'logiadmin' ) );
+				$facts[] = array( $r['marge_mobile'] . ' px', __( 'sur téléphone', 'logiadmin' ) );
+				$facts[] = $r['quiz'] ? array( '✓', __( 'quiz aussi', 'logiadmin' ), 'ok' ) : array( '—', __( 'leçons seulement', 'logiadmin' ) );
 				break;
 
 			case 'accueil-groupe':

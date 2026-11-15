@@ -1,0 +1,79 @@
+/*
+ * Sensei – Leçons pleine largeur
+ * Le contenu des leçons (et des quiz) occupe toute la largeur disponible,
+ * avec une marge réglable à gauche et à droite (--lpl-marge).
+ */
+
+/* 1. Largeurs de Sensei (mode Apprentissage) remplacées par 100 %. */
+body.lpl-actif {
+	--wp--custom--layout--content-size: 100%;
+	--wp--custom--layout--wide-size: 100%;
+}
+
+body.lpl-actif .sensei-course-theme__main-content,
+body.lpl-actif .sensei-course-theme__quiz__footer__wrapper {
+	--content-size: 100%;
+	--wide-size: 100%;
+	--wp--style--global--content-size: 100%;
+	--wp--style--global--wide-size: 100%;
+	--content-padding: var(--lpl-marge, 40px);
+	max-width: none !important;
+	width: auto !important;
+	box-sizing: border-box;
+	padding-left: var(--lpl-marge, 40px) !important;
+	padding-right: var(--lpl-marge, 40px) !important;
+}
+
+/* 2. Blocs du contenu : plus de colonne étroite centrée. */
+body.lpl-actif .sensei-course-theme__main-content .wp-block-post-content > *,
+body.lpl-actif .sensei-course-theme__main-content .wp-block-post-content ~ div > *,
+body.lpl-actif .sensei-course-theme__main-content .wp-block-group__inner-container > *,
+body.lpl-actif .sensei-course-theme__main-content__container > *,
+body.lpl-actif .sensei-course-theme__main-content .is-layout-constrained > :where(:not(.alignleft):not(.alignright)),
+body.lpl-actif .sensei-course-theme__quiz__main-content > *,
+body.lpl-actif .sensei-course-theme__quiz__footer {
+	max-width: none !important;
+}
+
+/* 3. Titre, bandeau du quiz et images suivent la même largeur. */
+body.lpl-actif .sensei-course-theme__main-content .wp-block-post-title,
+body.lpl-actif .sensei-course-theme__main-content .sensei-course-theme-lesson-quiz-notice,
+body.lpl-actif .sensei-course-theme__main-content .sensei-lesson-footer {
+	max-width: none !important;
+}
+
+body.lpl-actif .sensei-course-theme__main-content img {
+	max-width: 100%;
+	height: auto;
+}
+
+body.lpl-actif .sensei-course-theme__main-content .wp-block-image img,
+body.lpl-actif .sensei-course-theme__main-content .wp-block-video video,
+body.lpl-actif .sensei-course-theme__main-content .wp-block-embed iframe {
+	width: 100%;
+}
+
+/* 4. Thème classique (sans mode Apprentissage). */
+body.lpl-actif.lpl-classique .site-main,
+body.lpl-actif.lpl-classique .content-area,
+body.lpl-actif.lpl-classique #primary,
+body.lpl-actif.lpl-classique article.lesson,
+body.lpl-actif.lpl-classique article.quiz,
+body.lpl-actif.lpl-classique .entry-content,
+body.lpl-actif.lpl-classique .wp-site-blocks main {
+	max-width: none !important;
+	width: auto !important;
+	box-sizing: border-box;
+}
+
+body.lpl-actif.lpl-classique .wp-site-blocks main,
+body.lpl-actif.lpl-classique .site-main {
+	padding-left: var(--lpl-marge, 40px) !important;
+	padding-right: var(--lpl-marge, 40px) !important;
+}
+
+body.lpl-actif.lpl-classique .entry-content > *,
+body.lpl-actif.lpl-classique .wp-block-post-content > *,
+body.lpl-actif.lpl-classique .is-layout-constrained > :where(:not(.alignleft):not(.alignright)) {
+	max-width: none !important;
+}

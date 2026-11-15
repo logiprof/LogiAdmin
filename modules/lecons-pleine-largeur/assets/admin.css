@@ -1,0 +1,104 @@
+/* Leçons pleine largeur : page de réglages LogiAdmin (voir aussi assets/css/logiadmin.css) */
+.lpl-admin .lpl-champs {
+	display: grid;
+	gap: 8px;
+	max-width: 460px;
+	margin-bottom: 12px;
+}
+
+.lpl-admin .lpl-label {
+	margin-top: 6px;
+	font-size: 13px;
+	font-weight: 600;
+}
+
+.lpl-admin .lpl-ligne {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	color: var(--lad-muted);
+}
+
+.lpl-admin .lpl-ligne input[type="range"] {
+	flex: 1;
+	min-width: 0;
+	accent-color: var(--lad-green);
+}
+
+.lpl-admin .lpl-ligne input[type="number"] {
+	width: 84px;
+}
+
+.lpl-admin .lpl-case {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	margin-top: 8px;
+	font-weight: 500;
+}
+
+/* Schéma : 1 px à l'écran représente 4 px réels sur ordinateur, ~4,2 sur téléphone. */
+.lpl-schemas {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-end;
+	gap: 24px;
+	margin: 6px 0 18px;
+}
+
+.lpl-ecran {
+	margin: 0;
+	text-align: center;
+}
+
+.lpl-ecran figcaption {
+	margin-top: 8px;
+	color: var(--lad-muted);
+	font-size: 12.5px;
+	font-weight: 500;
+}
+
+.lpl-ecran .lpl-page {
+	display: grid;
+	gap: 6px;
+	align-content: start;
+	box-sizing: border-box;
+	border: 3px solid var(--lad-ink);
+	border-radius: 8px;
+	background:
+		linear-gradient(90deg, var(--lad-yellow-soft) 0 var(--pad), transparent var(--pad) calc(100% - var(--pad)), var(--lad-yellow-soft) calc(100% - var(--pad)));
+	transition: padding .12s ease;
+}
+
+.lpl-ecran--ordinateur .lpl-page {
+	--pad: calc(var(--lpl-m) * .25px);
+	width: 320px;
+	height: 200px;
+	padding: 14px var(--pad);
+}
+
+.lpl-ecran--telephone .lpl-page {
+	--pad: calc(var(--lpl-t) * .24px);
+	width: 92px;
+	height: 180px;
+	padding: 12px var(--pad);
+	border-radius: 14px;
+}
+
+.lpl-bloc {
+	display: block;
+	height: 8px;
+	border-radius: 3px;
+	background: var(--lad-line-strong);
+}
+
+.lpl-bloc.lpl-titre {
+	height: 14px;
+	width: 70%;
+	background: var(--lad-ink);
+}
+
+.lpl-bloc.lpl-image {
+	height: 46px;
+	background: var(--lad-green);
+}

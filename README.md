@@ -1,4 +1,15 @@
-# LogiAdmin by LogiProf — 1.0.4
+# LogiAdmin by LogiProf — 1.0.5
+
+## Nouveautés 1.0.5
+
+- Nouvel outil **Leçons pleine largeur** (reprise de « Sensei – Leçons pleine largeur » 1.2.0) : le contenu
+  des leçons et des quiz Sensei occupe toute la largeur disponible, avec une marge réglable à gauche et à droite
+  (ordinateur et téléphone).
+- Réglages dans LogiAdmin › Leçons pleine largeur, avec un aperçu ordinateur / téléphone qui suit les curseurs.
+  Sur une leçon, le bouton « ↔ Marges » de la barre d'administration ouvre les mêmes réglages avec un aperçu en direct.
+- Le réglage reste l'option `lpl_reglages` : les marges déjà choisies sont reprises. Si l'ancienne extension est
+  encore active, LogiAdmin propose de la désactiver d'un clic.
+
 
 ## Nouveautés 1.0.4
 
@@ -46,7 +57,7 @@ installer à la main une version de LogiAdmin qui contient la nouvelle clé publ
 - Nouveau lien « Voir l'accueil public » dans la barre d'administration.
 - Les élèves restent toujours envoyés vers leur page d'accueil, même s'ils ajoutent ces paramètres à l'adresse.
 
-Une seule extension d'administration qui réunit six outils LogiProf, à l'habillage LogiOne
+Une seule extension d'administration qui réunit sept outils LogiProf, à l'habillage LogiOne
 (anthracite, vert, jaune « marquage d'entrepôt », police Poppins intégrée, pictogrammes en cubes).
 
 | Outil | Ancienne extension | Page |
@@ -54,6 +65,7 @@ Une seule extension d'administration qui réunit six outils LogiProf, à l'habil
 | Export Sensei | LogiSensei Export Pro 0.4.0 | LogiAdmin › Export Sensei |
 | Shortcodes Sensei | Sensei Shortcode 1.3.9 | LogiAdmin › Shortcodes Sensei |
 | Compteurs | Logiprof Animated Counters 1.4.0 | LogiAdmin › Compteurs |
+| Leçons pleine largeur | Sensei – Leçons pleine largeur 1.2.0 | LogiAdmin › Leçons pleine largeur |
 | Accueil selon groupe | Accueil selon groupe 1.0.4 | LogiAdmin › Accueil selon groupe |
 | Médias inutilisés | Logiprof Unused Media Finder 1.0.0 | LogiAdmin › Médias inutilisés |
 | Menu admin | Logiprof Admin Menu Manager 1.2.0 | LogiAdmin › Menu admin |
@@ -72,7 +84,7 @@ Aucune donnée n'est copiée, déplacée ni renommée : LogiAdmin lit exactement
 réglages et métadonnées que les anciennes extensions.
 
 - Réglages `logisensei_export_settings`, `logisensei_export_history`, `logiprof_amm_hidden_slugs`,
-  `logiprof_amm_menu_order`, `logiprof_um_connected_home_url`.
+  `logiprof_amm_menu_order`, `logiprof_um_connected_home_url`, `lpl_reglages`.
 - Métadonnées `_logiprof_allowed_profile_roles` (cours) et `_logiprof_um_connected_home_url` (utilisateurs).
 - Les shortcodes `[logiprof_sensei]`, `[logiprof_compteurs]`, `[logiprof_compteur]`,
   `[logiprof_counters]`, `[logiprof_counter]` gardent leur nom et leur rendu.

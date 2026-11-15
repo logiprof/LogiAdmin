@@ -1189,6 +1189,7 @@ a.lad-tile:hover .lad-tile-art {
 	--left: #4a5563;
 }
 
+.lad-tile--lecons-pleine-largeur,
 .lad-tile--accueil-groupe,
 .lad-tile--medias-inutilises,
 .lad-tile--menu-admin {

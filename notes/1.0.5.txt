@@ -1,0 +1,4 @@
+Nouveautés de la version 1.0.5 :
+• Nouvel outil « Leçons pleine largeur » (reprise de l'extension Sensei – Leçons pleine largeur 1.2.0) : le contenu des leçons et des quiz Sensei occupe toute la largeur, avec une marge réglable.
+• Réglages dans LogiAdmin, avec un aperçu ordinateur et téléphone ; bouton « ↔ Marges » toujours disponible sur les leçons.
+• Vos marges actuelles sont reprises telles quelles.

@@ -1,4 +1,11 @@
-# LogiAdmin by LogiProf — 1.0.5
+# LogiAdmin by LogiProf — 1.0.6
+
+## Nouveautés 1.0.6
+
+- Leçons pleine largeur : prise en charge du thème Divi. Divi limite le contenu à 80 % et 1080 px (`.container`,
+  `.et_pb_row`) ; la marge est maintenant posée sur `#main-content` et ces cadres prennent toute la largeur.
+  Le réglage et l'aperçu « ↔ Marges » agissent donc aussi sur un site Divi (texte simple et Divi Builder).
+
 
 ## Nouveautés 1.0.5
 

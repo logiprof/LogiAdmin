@@ -316,7 +316,8 @@ final class LPL_Sensei_Pleine_Largeur {
 			return;
 		}
 		$r = self::reglages();
-		wp_enqueue_style( 'lpl-pleine-largeur', plugins_url( 'assets/pleine-largeur.css', __FILE__ ), array(), self::VERSION );
+		// Le numéro de LogiAdmin force les navigateurs et caches à reprendre le style après une mise à jour.
+		wp_enqueue_style( 'lpl-pleine-largeur', plugins_url( 'assets/pleine-largeur.css', __FILE__ ), array(), self::VERSION . '-' . LOGIADMIN_VERSION );
 		wp_add_inline_style(
 			'lpl-pleine-largeur',
 			sprintf(

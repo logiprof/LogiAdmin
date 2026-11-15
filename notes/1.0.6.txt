@@ -1,0 +1,2 @@
+Nouveautés de la version 1.0.6 :
+• Leçons pleine largeur fonctionne avec le thème Divi : la marge choisie s'applique au texte des leçons comme au contenu fait avec le Divi Builder, et l'aperçu du bouton « ↔ Marges » suit le curseur.

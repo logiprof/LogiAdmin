@@ -77,3 +77,36 @@ body.lpl-actif.lpl-classique .wp-block-post-content > *,
 body.lpl-actif.lpl-classique .is-layout-constrained > :where(:not(.alignleft):not(.alignright)) {
 	max-width: none !important;
 }
+
+/* 5. Divi (thème classique, sans mode Apprentissage).
+ * Divi limite le contenu à 80 % et 1080 px, dans « .container » (texte simple)
+ * et dans chaque rangée « .et_pb_row » (contenu fait avec le Divi Builder).
+ * La marge est posée une seule fois, sur #main-content ; cadres et rangées prennent toute la place restante.
+ */
+body.lpl-actif.lpl-classique #main-content {
+	box-sizing: border-box;
+	padding-left: var(--lpl-marge, 40px) !important;
+	padding-right: var(--lpl-marge, 40px) !important;
+}
+
+body.lpl-actif.lpl-classique #main-content .container,
+body.lpl-actif.lpl-classique #main-content .et_pb_row,
+body.lpl-actif.lpl-classique #main-content .et_pb_row_inner,
+body.lpl-actif.lpl-classique .et-l--body .et_pb_row {
+	width: 100% !important;
+	max-width: none !important;
+}
+
+/* Sans barre latérale, la colonne du contenu prend toute la largeur. */
+body.lpl-actif.lpl-classique.et_no_sidebar #left-area,
+body.lpl-actif.lpl-classique.et_full_width_page #left-area {
+	width: 100% !important;
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+}
+
+/* Les sections pleine largeur de Divi restent bord à bord. */
+body.lpl-actif.lpl-classique #main-content .et_pb_fullwidth_section {
+	margin-left: calc(-1 * var(--lpl-marge, 40px));
+	margin-right: calc(-1 * var(--lpl-marge, 40px));
+}

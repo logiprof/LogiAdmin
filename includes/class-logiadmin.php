@@ -90,7 +90,7 @@ final class LogiAdmin {
 				'title'   => self::t( 'Leçons pleine largeur' ),
 				'menu'    => self::t( 'Leçons pleine largeur' ),
 				'group'   => 'formation',
-				'text'    => self::t( 'Les leçons, les quiz et la page du cours Sensei occupent toute la largeur, avec une marge réglable. Avec Divi : barre latérale masquée et position du logo réglable.' ),
+				'text'    => self::t( 'Largeur du contenu des leçons, des cours et des autres pages, barre latérale Divi et position du logo, avec aperçu en direct sur le site.' ),
 				'class'   => 'LPL_Sensei_Pleine_Largeur',
 				'legacy'  => 'sensei-lecons-pleine-largeur/sensei-lecons-pleine-largeur.php',
 				'name'    => 'Sensei – Leçons pleine largeur',

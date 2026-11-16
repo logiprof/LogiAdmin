@@ -43,12 +43,17 @@ final class LPL_Sensei_Pleine_Largeur {
 				'sans_barre'   => 1,
 				'entete'       => 0,
 				'marge_entete' => 40,
+				'pages'        => 0,
+				'marge_pages'  => 40,
+				'largeur_pages' => 1400,
 			)
 		);
+		$r['marge_pages']   = max( 0, min( 300, (int) $r['marge_pages'] ) );
+		$r['largeur_pages'] = max( 0, min( 3000, (int) $r['largeur_pages'] ) );
 		$r['marge']        = max( 0, min( 300, (int) $r['marge'] ) );
 		$r['marge_mobile'] = max( 0, min( 100, (int) $r['marge_mobile'] ) );
 		$r['marge_entete'] = max( 0, min( 300, (int) $r['marge_entete'] ) );
-		foreach ( array( 'quiz', 'cours', 'sans_barre', 'entete' ) as $k ) {
+		foreach ( array( 'quiz', 'cours', 'sans_barre', 'entete', 'pages' ) as $k ) {
 			$r[ $k ] = empty( $r[ $k ] ) ? 0 : 1;
 		}
 		return $r;
@@ -67,6 +72,9 @@ final class LPL_Sensei_Pleine_Largeur {
 				'sans_barre'   => empty( $in['sans_barre'] ) ? 0 : 1,
 				'entete'       => empty( $in['entete'] ) ? 0 : 1,
 				'marge_entete' => isset( $in['marge_entete'] ) ? max( 0, min( 300, (int) $in['marge_entete'] ) ) : 40,
+				'pages'        => empty( $in['pages'] ) ? 0 : 1,
+				'marge_pages'  => isset( $in['marge_pages'] ) ? max( 0, min( 300, (int) $in['marge_pages'] ) ) : 40,
+				'largeur_pages' => isset( $in['largeur_pages'] ) ? max( 0, min( 3000, (int) $in['largeur_pages'] ) ) : 1400,
 			)
 		);
 	}
@@ -89,6 +97,7 @@ final class LPL_Sensei_Pleine_Largeur {
 	private static function champs( $r, $id ) {
 		$n = esc_attr( self::OPTION );
 		?>
+		<span class="lpl-intertitre"><?php esc_html_e( 'Leçons et cours', 'sensei-lecons-pleine-largeur' ); ?></span>
 		<label class="lpl-label" for="<?php echo esc_attr( $id ); ?>-m"><?php esc_html_e( 'Marge à gauche et à droite', 'sensei-lecons-pleine-largeur' ); ?></label>
 		<span class="lpl-ligne"><input id="<?php echo esc_attr( $id ); ?>-m" type="range" min="0" max="200" step="2" value="<?php echo esc_attr( $r['marge'] ); ?>" data-lpl-curseur="marge">
 		<input type="number" min="0" max="300" name="<?php echo $n; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>[marge]" value="<?php echo esc_attr( $r['marge'] ); ?>" data-lpl-valeur="marge" class="small-text" aria-label="<?php esc_attr_e( 'Marge en pixels', 'sensei-lecons-pleine-largeur' ); ?>"> px</span>
@@ -101,10 +110,21 @@ final class LPL_Sensei_Pleine_Largeur {
 			<label class="lpl-case"><input type="checkbox" name="<?php echo $n; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>[sans_barre]" value="1" <?php checked( $r['sans_barre'] ); ?> data-lpl-classe="lpl-sans-barre"> <?php esc_html_e( 'Masquer la barre latérale et sa ligne verticale', 'sensei-lecons-pleine-largeur' ); ?></label>
 		</span>
 		<span class="lpl-groupe-entete">
-			<label class="lpl-case"><input type="checkbox" name="<?php echo $n; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>[entete]" value="1" <?php checked( $r['entete'] ); ?> data-lpl-classe="lpl-entete"> <?php esc_html_e( 'Élargir l’en-tête (logo et menu) sur tout le site', 'sensei-lecons-pleine-largeur' ); ?></label>
+			<span class="lpl-intertitre"><?php esc_html_e( 'Autres pages du site', 'sensei-lecons-pleine-largeur' ); ?></span>
+			<label class="lpl-case"><input type="checkbox" name="<?php echo $n; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>[pages]" value="1" <?php checked( $r['pages'] ); ?> data-lpl-classe="lpl-pages" data-lpl-active="pages"> <?php esc_html_e( 'Régler la largeur du contenu des pages et articles', 'sensei-lecons-pleine-largeur' ); ?></label>
+			<label class="lpl-label" for="<?php echo esc_attr( $id ); ?>-pl"><?php esc_html_e( 'Largeur maximale du contenu (0 = toute la largeur)', 'sensei-lecons-pleine-largeur' ); ?></label>
+			<span class="lpl-ligne"><input id="<?php echo esc_attr( $id ); ?>-pl" type="range" min="0" max="2400" step="20" value="<?php echo esc_attr( $r['largeur_pages'] ); ?>" data-lpl-curseur="largeur_pages" data-lpl-depend="pages">
+			<input type="number" min="0" max="3000" name="<?php echo $n; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>[largeur_pages]" value="<?php echo esc_attr( $r['largeur_pages'] ); ?>" data-lpl-valeur="largeur_pages" data-lpl-depend="pages" class="small-text" aria-label="<?php esc_attr_e( 'Largeur maximale en pixels', 'sensei-lecons-pleine-largeur' ); ?>"> px</span>
+			<label class="lpl-label" for="<?php echo esc_attr( $id ); ?>-pm"><?php esc_html_e( 'Marge minimale à gauche et à droite', 'sensei-lecons-pleine-largeur' ); ?></label>
+			<span class="lpl-ligne"><input id="<?php echo esc_attr( $id ); ?>-pm" type="range" min="0" max="200" step="2" value="<?php echo esc_attr( $r['marge_pages'] ); ?>" data-lpl-curseur="marge_pages" data-lpl-depend="pages">
+			<input type="number" min="0" max="300" name="<?php echo $n; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>[marge_pages]" value="<?php echo esc_attr( $r['marge_pages'] ); ?>" data-lpl-valeur="marge_pages" data-lpl-depend="pages" class="small-text" aria-label="<?php esc_attr_e( 'Marge minimale en pixels', 'sensei-lecons-pleine-largeur' ); ?>"> px</span>
+		</span>
+		<span class="lpl-groupe-entete">
+			<span class="lpl-intertitre"><?php esc_html_e( 'En-tête', 'sensei-lecons-pleine-largeur' ); ?></span>
+			<label class="lpl-case"><input type="checkbox" name="<?php echo $n; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>[entete]" value="1" <?php checked( $r['entete'] ); ?> data-lpl-classe="lpl-entete" data-lpl-active="entete"> <?php esc_html_e( 'Élargir l’en-tête (logo et menu) sur tout le site', 'sensei-lecons-pleine-largeur' ); ?></label>
 			<label class="lpl-label" for="<?php echo esc_attr( $id ); ?>-e"><?php esc_html_e( 'Distance du logo au bord gauche (et du menu au bord droit)', 'sensei-lecons-pleine-largeur' ); ?></label>
-			<span class="lpl-ligne"><input id="<?php echo esc_attr( $id ); ?>-e" type="range" min="0" max="200" step="2" value="<?php echo esc_attr( $r['marge_entete'] ); ?>" data-lpl-curseur="marge_entete">
-			<input type="number" min="0" max="300" name="<?php echo $n; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>[marge_entete]" value="<?php echo esc_attr( $r['marge_entete'] ); ?>" data-lpl-valeur="marge_entete" class="small-text" aria-label="<?php esc_attr_e( 'Distance du logo au bord en pixels', 'sensei-lecons-pleine-largeur' ); ?>"> px</span>
+			<span class="lpl-ligne"><input id="<?php echo esc_attr( $id ); ?>-e" type="range" min="0" max="200" step="2" value="<?php echo esc_attr( $r['marge_entete'] ); ?>" data-lpl-curseur="marge_entete" data-lpl-depend="entete">
+			<input type="number" min="0" max="300" name="<?php echo $n; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>[marge_entete]" value="<?php echo esc_attr( $r['marge_entete'] ); ?>" data-lpl-valeur="marge_entete" data-lpl-depend="entete" class="small-text" aria-label="<?php esc_attr_e( 'Distance du logo au bord en pixels', 'sensei-lecons-pleine-largeur' ); ?>"> px</span>
 		</span>
 		<?php
 	}
@@ -123,16 +143,21 @@ final class LPL_Sensei_Pleine_Largeur {
 				if (b.classList.contains('lpl-actif')) {
 					b.style.setProperty('--lpl-marge', (tel ? t : m) + 'px');
 				}
+				var pl = form.querySelector('[data-lpl-valeur="largeur_pages"]').value;
+				var pm = form.querySelector('[data-lpl-valeur="marge_pages"]').value;
 				if (!b.classList.contains('wp-admin')) {
 					b.style.setProperty('--lpl-entete', (tel ? t : e) + 'px');
+					b.style.setProperty('--lpl-pm', (tel ? t : pm) + 'px');
+					b.style.setProperty('--lpl-pmax', +pl > 0 ? pl + 'px' : 'none');
 					form.querySelectorAll('[data-lpl-classe]').forEach(function (c) {
 						var cl = c.getAttribute('data-lpl-classe');
 						if (cl === 'lpl-sans-barre' && !b.classList.contains('lpl-actif')) return;
+						if (cl === 'lpl-pages' && b.classList.contains('lpl-actif')) return;
 						b.classList.toggle(cl, c.checked);
 					});
 				}
+				activer(form);
 				var ent = form.querySelector('[data-lpl-classe="lpl-entete"]');
-				form.querySelectorAll('[data-lpl-curseur="marge_entete"], [data-lpl-valeur="marge_entete"]').forEach(function (c) { c.disabled = ent && !ent.checked; });
 				document.querySelectorAll('[data-lpl-schema]').forEach(function (s) {
 					s.style.setProperty('--lpl-m', m);
 					s.style.setProperty('--lpl-t', t);
@@ -142,6 +167,12 @@ final class LPL_Sensei_Pleine_Largeur {
 					s.querySelectorAll('[data-lpl-chiffre="marge_entete"]').forEach(function (x) { x.textContent = ent && ent.checked ? e + ' px' : 'Divi'; });
 					var barre = form.querySelector('[data-lpl-classe="lpl-sans-barre"]');
 					s.classList.toggle('lpl-avec-barre', !!barre && !barre.checked);
+				});
+			}
+			function activer(form) {
+				form.querySelectorAll('[data-lpl-depend]').forEach(function (c) {
+					var k = form.querySelector('[data-lpl-active="' + c.getAttribute('data-lpl-depend') + '"]');
+					c.disabled = !!k && !k.checked;
 				});
 			}
 			function sur(e) {
@@ -158,10 +189,7 @@ final class LPL_Sensei_Pleine_Largeur {
 			}
 			document.addEventListener('input', sur);
 			document.addEventListener('change', sur);
-			document.querySelectorAll('.lpl-form').forEach(function (f) {
-				var ent = f.querySelector('[data-lpl-classe="lpl-entete"]');
-				f.querySelectorAll('[data-lpl-curseur="marge_entete"], [data-lpl-valeur="marge_entete"]').forEach(function (c) { c.disabled = ent && !ent.checked; });
-			});
+			document.querySelectorAll('.lpl-form').forEach(activer);
 		})();
 		</script>
 		<?php
@@ -223,7 +251,7 @@ final class LPL_Sensei_Pleine_Largeur {
 				<input type="hidden" name="lpl_retour" value="<?php echo esc_attr( admin_url( 'admin.php?page=' . self::SLUG ) ); ?>">
 				<?php wp_nonce_field( 'lpl_enregistrer' ); ?>
 				<div class="lpl-champs"><?php self::champs( $r, 'lpl-page' ); ?></div>
-				<p class="description"><?php esc_html_e( 'La marge sur téléphone s’applique aux écrans de 640 px de large ou moins, y compris à l’en-tête. La barre latérale n’est masquée que sur les leçons et pages de cours concernées ; l’en-tête, lui, est élargi sur tout le site pour que le logo ne change pas de place d’une page à l’autre.', 'sensei-lecons-pleine-largeur' ); ?></p>
+				<p class="description"><?php esc_html_e( 'La marge sur téléphone s’applique aux écrans de 640 px de large ou moins, partout. La barre latérale n’est masquée que sur les leçons et pages de cours. Pour les autres pages, le contenu prend la largeur de l’écran moins la marge, sans dépasser la largeur maximale (Divi : 1080 px par défaut) ; les fonds de section restent pleine largeur.', 'sensei-lecons-pleine-largeur' ); ?></p>
 				<?php submit_button( __( 'Enregistrer', 'sensei-lecons-pleine-largeur' ), 'primary', 'submit', false ); ?>
 			</form>
 
@@ -255,9 +283,17 @@ final class LPL_Sensei_Pleine_Largeur {
 		return is_user_logged_in() && current_user_can( 'manage_options' );
 	}
 
+	/** Le bouton « ↔ Marges » : sur toutes les pages du site, pour les administrateurs, hors éditeur Divi. */
+	private static function panneau_possible() {
+		if ( is_admin() || ! self::est_admin() || is_customize_preview() ) {
+			return false;
+		}
+		return ! isset( $_GET['et_fb'] ) && ! isset( $_GET['et_pb_preview'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	}
+
 	/** Entrée « ↔ Marges » dans la barre d'administration. */
 	public static function barre_admin( $bar ) {
-		if ( ! self::concerne() || ! self::est_admin() ) {
+		if ( ! self::panneau_possible() ) {
 			return;
 		}
 		$bar->add_node(
@@ -265,14 +301,14 @@ final class LPL_Sensei_Pleine_Largeur {
 				'id'    => 'lpl-marges',
 				'title' => '↔ ' . esc_html__( 'Marges', 'sensei-lecons-pleine-largeur' ),
 				'href'  => '#lpl-marges',
-				'meta'  => array( 'title' => __( 'Régler la largeur des cours, des leçons et de l’en-tête', 'sensei-lecons-pleine-largeur' ) ),
+				'meta'  => array( 'title' => __( 'Régler la largeur des pages, des cours, des leçons et de l’en-tête', 'sensei-lecons-pleine-largeur' ) ),
 			)
 		);
 	}
 
 	/** Panneau « Marges » sur la leçon : aperçu en direct puis enregistrement. */
 	public static function panneau_lecon() {
-		if ( ! self::concerne() || ! self::est_admin() ) {
+		if ( ! self::panneau_possible() ) {
 			return;
 		}
 		$r      = self::reglages();
@@ -281,10 +317,10 @@ final class LPL_Sensei_Pleine_Largeur {
 		$retour = remove_query_arg( 'lpl_ok', $retour );
 		$ouvert = isset( $_GET['lpl_ok'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		?>
-		<div class="lpl-panneau<?php echo $barre ? ' lpl-sous-barre' : ''; ?>" id="lpl-marges" role="dialog" aria-label="<?php esc_attr_e( 'Largeur des cours et des leçons', 'sensei-lecons-pleine-largeur' ); ?>" <?php echo $ouvert ? '' : 'hidden'; ?>>
+		<div class="lpl-panneau<?php echo $barre ? ' lpl-sous-barre' : ''; ?>" id="lpl-marges" role="dialog" aria-label="<?php esc_attr_e( 'Largeur des pages', 'sensei-lecons-pleine-largeur' ); ?>" <?php echo $ouvert ? '' : 'hidden'; ?>>
 			<button type="button" class="lpl-fermer" aria-label="<?php esc_attr_e( 'Fermer', 'sensei-lecons-pleine-largeur' ); ?>">×</button>
 			<form class="lpl-form" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
-				<strong class="lpl-titre-panneau"><?php esc_html_e( 'Largeur des cours et des leçons', 'sensei-lecons-pleine-largeur' ); ?></strong>
+				<strong class="lpl-titre-panneau"><?php esc_html_e( 'Largeur des pages', 'sensei-lecons-pleine-largeur' ); ?></strong>
 				<input type="hidden" name="action" value="lpl_enregistrer">
 				<input type="hidden" name="lpl_retour" value="<?php echo esc_attr( $retour ); ?>">
 				<?php wp_nonce_field( 'lpl_enregistrer' ); ?>
@@ -335,6 +371,7 @@ final class LPL_Sensei_Pleine_Largeur {
 			.lpl-panneau .lpl-cases,.lpl-panneau .lpl-groupe-entete{display:grid;gap:6px}
 			.lpl-panneau .lpl-groupe-entete{margin-top:6px;padding-top:10px;border-top:1px solid #e3e6df}
 			.lpl-panneau input:disabled{opacity:.45}
+			.lpl-panneau .lpl-intertitre{display:block;margin-top:2px;color:#067030;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
 			.lpl-panneau input[type=checkbox]{accent-color:var(--green)}
 			.lpl-panneau button[type=submit]{margin-top:8px;padding:10px 14px;border:0;border-radius:999px;background:var(--green);color:#fff;font-weight:600;cursor:pointer}
 			.lpl-panneau button[type=submit]:hover{background:#0b4d22}
@@ -384,6 +421,9 @@ final class LPL_Sensei_Pleine_Largeur {
 		if ( $r['entete'] ) {
 			$classes[] = 'lpl-entete';
 		}
+		if ( $r['pages'] && ! self::concerne() ) {
+			$classes[] = 'lpl-pages';
+		}
 		return $classes;
 	}
 
@@ -398,21 +438,35 @@ final class LPL_Sensei_Pleine_Largeur {
 			return;
 		}
 		$r = self::reglages();
-		if ( ! $r['entete'] && ! ( self::concerne() && self::est_admin() ) ) {
+		if ( ! $r['entete'] && ! $r['pages'] && ! self::panneau_possible() ) {
 			return;
 		}
-		$sel = 'body.lpl-entete #main-header .container,body.lpl-entete #top-header .container,body.lpl-entete .et-l--header .et_pb_row';
-		wp_register_style( 'lpl-entete', false, array(), LOGIADMIN_VERSION );
-		wp_enqueue_style( 'lpl-entete' );
-		wp_add_inline_style(
-			'lpl-entete',
-			sprintf(
+		$css = '';
+		if ( $r['entete'] || self::panneau_possible() ) {
+			$css .= sprintf(
 				'body.lpl-entete{--lpl-entete:%1$dpx}@media (max-width:640px){body.lpl-entete{--lpl-entete:%2$dpx}}%3$s{width:calc(100%% - 2 * var(--lpl-entete,40px))!important;max-width:none!important}',
 				$r['marge_entete'],
 				$r['marge_mobile'],
-				$sel
-			)
-		);
+				'body.lpl-entete #main-header .container,body.lpl-entete #top-header .container,body.lpl-entete .et-l--header .et_pb_row'
+			);
+		}
+		if ( $r['pages'] || self::panneau_possible() ) {
+			/*
+			 * Autres pages : les rangées Divi (80 %, 1080 px) et le cadre du contenu prennent la largeur
+			 * de l'écran moins la marge, sans dépasser la largeur maximale. Les rangées imbriquées
+			 * (et_pb_row_inner) suivent leur colonne et ne sont pas touchées.
+			 */
+			$css .= sprintf(
+				'body.lpl-pages{--lpl-pm:%1$dpx;--lpl-pmax:%2$s}@media (max-width:640px){body.lpl-pages{--lpl-pm:%3$dpx}}%4$s{width:calc(100%% - 2 * var(--lpl-pm,40px))!important;max-width:var(--lpl-pmax,none)!important}',
+				$r['marge_pages'],
+				$r['largeur_pages'] > 0 ? $r['largeur_pages'] . 'px' : 'none',
+				$r['marge_mobile'],
+				'body.lpl-pages #main-content .container,body.lpl-pages #main-content .et_pb_row,body.lpl-pages .et-l--body .et_pb_row'
+			);
+		}
+		wp_register_style( 'lpl-entete', false, array(), LOGIADMIN_VERSION );
+		wp_enqueue_style( 'lpl-entete' );
+		wp_add_inline_style( 'lpl-entete', $css );
 	}
 
 	public static function styles() {

@@ -1,4 +1,13 @@
-# LogiAdmin by LogiProf — 1.0.8
+# LogiAdmin by LogiProf — 1.0.9
+
+## Nouveautés 1.0.9
+
+- Leçons pleine largeur : nouveau groupe « Autres pages du site » (désactivé par défaut). Les rangées Divi
+  (`.et_pb_row`, 80 % / 1080 px) et `#main-content .container` prennent `100 % − 2 × marge`, plafonné à la
+  largeur maximale (0 = aucune limite). Les rangées imbriquées et les fonds de section ne sont pas touchés ;
+  les leçons et cours gardent leurs propres réglages.
+- Le bouton « ↔ Marges » apparaît sur toutes les pages du site pour les administrateurs, sauf dans
+  l'éditeur visuel Divi et l'outil de personnalisation.
 
 ## Nouveautés 1.0.8
 

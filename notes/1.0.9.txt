@@ -1,0 +1,3 @@
+Nouveautés de la version 1.0.9 :
+• Leçons pleine largeur règle aussi la largeur du contenu des autres pages et articles : largeur maximale et marge minimale, avec aperçu en direct.
+• Le bouton « ↔ Marges » est disponible sur toutes les pages du site pour les administrateurs (sauf dans l'éditeur Divi).

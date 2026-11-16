@@ -102,3 +102,69 @@
 	height: 46px;
 	background: var(--lad-green);
 }
+
+/* En-tête du schéma : le logo se place selon la distance réglée (Divi par défaut : 10 % de l’écran, soit 128 px sur un écran de 1280 px). */
+.lpl-ecran .lpl-page {
+	position: relative;
+}
+
+.lpl-ecran .lpl-entete {
+	display: block;
+	position: relative;
+	height: 16px;
+	margin: -6px calc(-1 * var(--pad)) 4px;
+	border-bottom: 1px solid var(--lad-line-strong);
+}
+
+.lpl-ecran .lpl-logo,
+.lpl-ecran .lpl-menu {
+	position: absolute;
+	top: 3px;
+	height: 9px;
+	border-radius: 2px;
+	transition: left .12s ease, right .12s ease;
+}
+
+.lpl-ecran .lpl-logo {
+	width: 26px;
+	background: var(--lad-green);
+	left: 10%;
+}
+
+.lpl-ecran .lpl-menu {
+	width: 40px;
+	background: var(--lad-ink);
+	right: 10%;
+	opacity: .55;
+}
+
+.lpl-ecran--ordinateur .lpl-logo { left: calc(var(--lpl-e) * .25px); }
+.lpl-ecran--ordinateur .lpl-menu { right: calc(var(--lpl-e) * .25px); }
+.lpl-ecran--telephone .lpl-logo { width: 16px; }
+.lpl-ecran--telephone .lpl-menu { width: 12px; }
+
+.lpl-ecran .lpl-ligne-barre { display: none; }
+
+.lpl-avec-barre .lpl-ecran--ordinateur .lpl-ligne-barre {
+	display: block;
+	position: absolute;
+	top: 30px;
+	bottom: 10px;
+	right: calc(var(--pad) + 22%);
+	width: 1px;
+	background: var(--lad-line-strong);
+}
+
+.lpl-admin .lpl-cases,
+.lpl-admin .lpl-groupe-entete {
+	display: grid;
+	gap: 4px;
+}
+
+.lpl-admin .lpl-groupe-entete {
+	margin-top: 10px;
+	padding-top: 12px;
+	border-top: 1px solid var(--lad-line);
+}
+
+.lpl-admin input:disabled { opacity: .45; }

@@ -110,3 +110,22 @@ body.lpl-actif.lpl-classique #main-content .et_pb_fullwidth_section {
 	margin-left: calc(-1 * var(--lpl-marge, 40px));
 	margin-right: calc(-1 * var(--lpl-marge, 40px));
 }
+
+/* ------------------------------------------------------------------
+ * 6. Divi : barre latérale et sa ligne verticale (case « Masquer la barre latérale »)
+ * Divi dessine la ligne grise avec #main-content .container:before, même quand la barre est vide.
+ * ------------------------------------------------------------------ */
+body.lpl-actif.lpl-sans-barre #main-content .container:before {
+	display: none !important;
+}
+
+body.lpl-actif.lpl-sans-barre #sidebar {
+	display: none !important;
+}
+
+body.lpl-actif.lpl-sans-barre #left-area {
+	width: 100% !important;
+	float: none !important;
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+}

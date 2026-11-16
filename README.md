@@ -1,4 +1,17 @@
-# LogiAdmin by LogiProf — 1.0.6
+# LogiAdmin by LogiProf — 1.0.7
+
+## Nouveautés 1.0.7
+
+- Leçons pleine largeur : nouvelle case « Aussi pour la page du cours » (activée par défaut), qui applique
+  la marge à la page de présentation du cours.
+- Case « Masquer la barre latérale et sa ligne verticale » (activée par défaut) : Divi dessine la ligne avec
+  `#main-content .container:before`, même quand la barre est vide ; elle est masquée sur les pages concernées
+  et le contenu prend toute la largeur.
+- Réglage de l'en-tête (désactivé par défaut) : le cadre de l'en-tête Divi (`#main-header .container`,
+  `#top-header .container`, en-tête du Theme Builder) est élargi à `100 % − 2 × distance`, ce qui place le
+  logo à la distance choisie du bord gauche et le menu à la même distance du bord droit, sur tout le site.
+  Sur téléphone, la marge téléphone s'applique.
+- Les réglages déjà enregistrés sont conservés ; les nouveaux s'ajoutent avec leur valeur par défaut.
 
 ## Nouveautés 1.0.6
 

@@ -1,0 +1,4 @@
+Nouveautés de la version 1.0.7 :
+• Leçons pleine largeur s'applique aussi à la page de présentation du cours (liste des leçons), avec la même marge.
+• Nouvelle case pour masquer la barre latérale de Divi et sa ligne verticale grise sur les leçons et la page du cours.
+• Nouveau réglage d'en-tête : la distance du logo au bord gauche (et du menu au bord droit), sur tout le site, avec aperçu en direct depuis le bouton « ↔ Marges ».

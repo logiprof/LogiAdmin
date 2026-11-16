@@ -304,10 +304,17 @@ final class LPL_Sensei_Pleine_Largeur {
 			var p = document.getElementById('lpl-marges');
 			if (!p) return;
 			if (window.location.hash === '#lpl-marges') { p.hidden = false; }
-			document.addEventListener('click', function (e) {
-				if (e.target.closest('#wp-admin-bar-lpl-marges a, [data-lpl-ouvrir]')) { e.preventDefault(); p.hidden = !p.hidden; return; }
-				if (e.target.closest('.lpl-fermer')) { p.hidden = true; }
-			});
+			// Phase de capture : le clic est traité avant les scripts du thème. Divi intercepte les liens
+			// contenant « # » pour son défilement doux (« return false ») et le bouton ne réagissait plus.
+			window.addEventListener('click', function (e) {
+				if (!e.target.closest) return;
+				if (e.target.closest('#wp-admin-bar-lpl-marges a, [data-lpl-ouvrir]')) {
+					e.preventDefault(); e.stopPropagation();
+					p.hidden = !p.hidden;
+					return;
+				}
+				if (e.target.closest('.lpl-fermer')) { e.preventDefault(); p.hidden = true; }
+			}, true);
 			document.addEventListener('keydown', function (e) { if (e.key === 'Escape') p.hidden = true; });
 		})();
 		</script>

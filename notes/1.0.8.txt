@@ -1,0 +1,2 @@
+Nouveautés de la version 1.0.8 :
+• Correction : le bouton « ↔ Marges » de la barre d'administration ouvre de nouveau le panneau de réglages avec le thème Divi (le défilement doux de Divi interceptait le clic).

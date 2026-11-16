@@ -1,4 +1,10 @@
-# LogiAdmin by LogiProf — 1.0.7
+# LogiAdmin by LogiProf — 1.0.8
+
+## Nouveautés 1.0.8
+
+- Correction : le bouton « ↔ Marges » n'ouvrait pas le panneau avec Divi. Le défilement doux de Divi
+  intercepte les liens contenant « # » (`return false`, qui arrête aussi la propagation) ; le clic est
+  désormais traité en phase de capture, avant les scripts du thème.
 
 ## Nouveautés 1.0.7
 
